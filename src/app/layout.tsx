@@ -3,6 +3,7 @@ import { Fraunces, Work_Sans } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import { Analytics } from "@vercel/analytics/next";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -33,6 +34,7 @@ export default function RootLayout({
         <SiteHeader />
         <div className="flex-1">{children}</div>
         <SiteFooter />
+        <Analytics />
       </body>
     </html>
   );
