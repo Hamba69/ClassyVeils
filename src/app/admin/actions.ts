@@ -260,6 +260,18 @@ export async function updateSiteText(formData: FormData) {
   revalidatePath(`/contact`);
 }
 
+export async function updateOrderStatus(orderId: string, status: string) {
+  const allowedStatuses = new Set(["new", "contacted", "completed", "cancelled"]);
+  if (!allowedStatuses.has(status)) throw new Error("Invalid order status");
+  const supabase = await requireAdmin();
+  const { error } = await supabase
+    .from("order_requests")
+    .update({ status, updated_at: new Date().toISOString() })
+    .eq("id", orderId);
+  if (error) throw new Error(`Could not update order: ${error.message}`);
+  revalidatePath("/admin/orders");
+}
+
 export async function signOut() {
   const supabase = await createClient();
   await supabase.auth.signOut();

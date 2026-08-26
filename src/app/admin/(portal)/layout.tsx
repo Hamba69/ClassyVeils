@@ -22,6 +22,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <Link href="/admin/site-text" className="flex min-h-11 shrink-0 items-center rounded-full border border-line bg-white px-4 text-sm text-ink/70 hover:border-plum hover:text-plum">
               Site text
             </Link>
+            <Link href="/admin/orders" className="flex min-h-11 shrink-0 items-center rounded-full border border-line bg-white px-4 text-sm text-ink/70 hover:border-plum hover:text-plum">
+              Orders
+            </Link>
           </nav>
         </div>
       </header>

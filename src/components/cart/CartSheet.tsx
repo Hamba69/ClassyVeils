@@ -1,10 +1,58 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
+import { submitOrderRequest, type OrderRequestState } from "@/app/order-actions";
 import { createClient } from "@/lib/supabase/client";
 import { buildCartWhatsAppUrl } from "@/lib/cart/buildWhatsAppMessage";
-import { useCart } from "@/lib/cart/CartContext";
+import { useCart, type CartLine } from "@/lib/cart/CartContext";
+
+const initialOrderState: OrderRequestState = { status: "idle", message: "" };
+
+function OrderRequestForm({ lines, onDone }: { lines: CartLine[]; onDone: () => void }) {
+  const [state, action, pending] = useActionState(submitOrderRequest, initialOrderState);
+
+  if (state.status === "success") {
+    return (
+      <div className="rounded-2xl border border-sage/25 bg-sage/10 p-4 text-center">
+        <p className="font-display text-xl text-ink">Request received.</p>
+        <p className="mt-2 text-xs leading-5 text-ink/62">{state.message}</p>
+        {state.reference && <p className="mt-2 text-xs font-semibold tracking-[0.18em] text-sage">REF {state.reference}</p>}
+        <button type="button" onClick={onDone} className="mt-4 min-h-11 rounded-full bg-ink px-5 text-sm font-medium text-linen">
+          Done
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <form action={action} className="space-y-3">
+      <input type="hidden" name="items" value={JSON.stringify(lines.map(({ id, qty }) => ({ id, qty })))} />
+      <div className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+        <label htmlFor="order-website">Website</label>
+        <input id="order-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+      </div>
+      <div className="grid gap-3 sm:grid-cols-2">
+        <div>
+          <label htmlFor="order-name" className="text-xs font-medium text-ink/68">Your name</label>
+          <input id="order-name" name="customer_name" required minLength={2} maxLength={100} autoComplete="name" className="mt-1 min-h-11 w-full rounded-xl border border-line bg-white px-3 text-sm outline-none focus:border-plum" />
+        </div>
+        <div>
+          <label htmlFor="order-contact" className="text-xs font-medium text-ink/68">Phone, WhatsApp, or email</label>
+          <input id="order-contact" name="contact" required minLength={5} maxLength={160} autoComplete="tel" className="mt-1 min-h-11 w-full rounded-xl border border-line bg-white px-3 text-sm outline-none focus:border-plum" />
+        </div>
+      </div>
+      <div>
+        <label htmlFor="order-notes" className="text-xs font-medium text-ink/68">Colour or order notes <span className="font-normal text-ink/42">(optional)</span></label>
+        <textarea id="order-notes" name="notes" maxLength={1000} rows={2} className="mt-1 w-full rounded-xl border border-line bg-white px-3 py-2 text-sm outline-none focus:border-plum" />
+      </div>
+      {state.status === "error" && <p role="alert" className="text-xs text-plum">{state.message}</p>}
+      <button type="submit" disabled={pending} className="min-h-12 w-full rounded-full bg-sage px-5 text-sm font-semibold text-linen transition hover:bg-ink disabled:cursor-wait disabled:opacity-60">
+        {pending ? "Saving your request…" : "Request this order"}
+      </button>
+    </form>
+  );
+}
 
 export default function CartSheet() {
   const { lines, isOpen, closeCart, removeItem, updateQty, clear } = useCart();
@@ -71,7 +119,7 @@ export default function CartSheet() {
           {lines.length === 0 ? (
             <div className="flex min-h-52 flex-col items-center justify-center text-center">
               <p className="font-display text-2xl text-ink">Your bag is waiting.</p>
-              <p className="mt-2 max-w-xs text-sm leading-6 text-ink/55">Add a veil you love, then send the complete order to Classyveils on WhatsApp.</p>
+              <p className="mt-2 max-w-xs text-sm leading-6 text-ink/55">Add a veil you love, then submit the complete order for confirmation.</p>
             </div>
           ) : (
             <ul className="divide-y divide-line">
@@ -99,8 +147,10 @@ export default function CartSheet() {
         <div className="border-t border-line bg-linen px-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-4 sm:px-7">
           {checkoutUrl ? (
             <a href={checkoutUrl} target="_blank" rel="noopener noreferrer" className="flex min-h-12 w-full items-center justify-center rounded-full bg-sage px-5 text-sm font-semibold text-linen transition hover:bg-ink">Send order on WhatsApp</a>
+          ) : lines.length > 0 ? (
+            <OrderRequestForm lines={lines} onDone={() => { clear(); closeCart(); }} />
           ) : (
-            <button type="button" disabled className="min-h-12 w-full rounded-full bg-ink/10 px-5 text-sm text-ink/40">{lines.length === 0 ? "Add a veil to continue" : "WhatsApp number unavailable"}</button>
+            <button type="button" disabled className="min-h-12 w-full rounded-full bg-ink/10 px-5 text-sm text-ink/40">Add a veil to continue</button>
           )}
           <p className="mt-2 text-center text-[0.65rem] leading-5 text-ink/45">No online payment. We’ll confirm availability and the final total with you directly.</p>
         </div>
