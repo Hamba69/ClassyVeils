@@ -11,7 +11,7 @@ export default async function SiteTextPage() {
         Everything here shows up somewhere on the public site.
       </p>
 
-      <form action={updateSiteText} className="mt-8 space-y-5">
+      <form action={updateSiteText} className="mt-8 space-y-5 rounded-2xl border border-line bg-white/35 p-4 sm:p-6">
         <div>
           <label className="text-sm font-medium text-ink">Homepage headline</label>
           <input
@@ -66,12 +66,9 @@ export default async function SiteTextPage() {
             className="mt-1 w-full rounded-md border border-line bg-white px-3 py-2 text-sm"
           />
         </div>
-        <button
-          type="submit"
-          className="rounded-md bg-ink px-4 py-2 text-sm text-linen hover:bg-plum"
-        >
-          Save
-        </button>
+        <div className="sticky bottom-3 z-10 rounded-2xl border border-line bg-linen/95 p-2 shadow-lg backdrop-blur">
+          <button type="submit" className="min-h-12 w-full rounded-xl bg-ink px-4 text-sm font-medium text-linen hover:bg-plum">Save site text</button>
+        </div>
       </form>
     </div>
   );

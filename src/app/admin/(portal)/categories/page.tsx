@@ -19,7 +19,7 @@ export default async function CategoriesPage() {
       </div>
 
       {(categories as Category[] | null)?.map((c) => (
-        <form key={c.slug} action={updateCategoryText} className="max-w-lg space-y-3 border-t border-line pt-6">
+        <form key={c.slug} action={updateCategoryText} className="max-w-xl space-y-4 rounded-2xl border border-line bg-white/35 p-4 sm:p-6">
           <input type="hidden" name="slug" value={c.slug} />
           <h2 className="font-display text-lg text-ink">{c.label}</h2>
 
@@ -59,12 +59,9 @@ export default async function CategoriesPage() {
               className="mt-1 w-full rounded-md border border-line bg-white px-3 py-2 text-sm"
             />
           </div>
-          <button
-            type="submit"
-            className="rounded-md bg-ink px-4 py-2 text-sm text-linen hover:bg-plum"
-          >
-            Save {c.label}
-          </button>
+          <div className="sticky bottom-3 z-10 rounded-2xl border border-line bg-linen/95 p-2 shadow-lg backdrop-blur">
+            <button type="submit" className="min-h-12 w-full rounded-xl bg-ink px-4 text-sm font-medium text-linen hover:bg-plum">Save {c.label}</button>
+          </div>
         </form>
       ))}
     </div>

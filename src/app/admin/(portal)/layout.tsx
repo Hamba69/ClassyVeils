@@ -5,25 +5,27 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   return (
     <div className="min-h-screen bg-linen">
       <header className="border-b border-line bg-linen">
-        <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-6">
-            <span className="font-display text-lg text-ink">Portal</span>
-            <Link href="/admin" className="text-sm text-ink/70 hover:text-plum">
+        <div className="mx-auto max-w-5xl px-4 py-4 sm:px-6">
+          <div className="flex items-center justify-between gap-4">
+            <span className="font-display text-xl text-ink">Classyveils portal</span>
+            <form action={signOut}>
+              <button className="min-h-11 rounded-full px-3 text-sm text-ink/55 hover:text-plum">Sign out</button>
+            </form>
+          </div>
+          <nav className="-mx-1 mt-3 flex gap-2 overflow-x-auto px-1 pb-1" aria-label="Admin sections">
+            <Link href="/admin" className="flex min-h-11 shrink-0 items-center rounded-full border border-line bg-white px-4 text-sm text-ink/70 hover:border-plum hover:text-plum">
               Veils
             </Link>
-            <Link href="/admin/categories" className="text-sm text-ink/70 hover:text-plum">
-              Category pages
+            <Link href="/admin/categories" className="flex min-h-11 shrink-0 items-center rounded-full border border-line bg-white px-4 text-sm text-ink/70 hover:border-plum hover:text-plum">
+              Categories
             </Link>
-            <Link href="/admin/site-text" className="text-sm text-ink/70 hover:text-plum">
+            <Link href="/admin/site-text" className="flex min-h-11 shrink-0 items-center rounded-full border border-line bg-white px-4 text-sm text-ink/70 hover:border-plum hover:text-plum">
               Site text
             </Link>
-          </div>
-          <form action={signOut}>
-            <button className="text-sm text-ink/50 hover:text-plum">Sign out</button>
-          </form>
+          </nav>
         </div>
       </header>
-      <main className="mx-auto max-w-4xl px-6 py-10">{children}</main>
+      <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-10">{children}</main>
     </div>
   );
 }
