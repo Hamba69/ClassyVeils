@@ -37,7 +37,7 @@ export async function proxy(request: NextRequest) {
       return NextResponse.redirect(url);
     }
 
-    // Whitelist check — signed in with Google isn't enough on its own.
+    // A valid Supabase session is necessary but the database allowlist is authoritative.
     const { data: allowed } = await supabase
       .from("allowed_admins")
       .select("email")
