@@ -17,6 +17,9 @@ export type Veil = {
   price: number | null;
   photos: string[];
   cover_index: number;
+  model_photos: string[];
+  editorial_cover_index: number;
+  use_editorial_cover: boolean;
   is_featured: boolean;
   video_url: string | null;
   visible: boolean;
@@ -24,6 +27,12 @@ export type Veil = {
 };
 
 export function photoUrl(path: string) {
+  if (path.startsWith("/")) return path;
   const base = process.env.NEXT_PUBLIC_SUPABASE_URL;
   return `${base}/storage/v1/object/public/veil-photos/${path}`;
+}
+
+export function editorialPhotoUrl(path: string) {
+  const base = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  return `${base}/storage/v1/object/public/veil-editorial/${path}`;
 }

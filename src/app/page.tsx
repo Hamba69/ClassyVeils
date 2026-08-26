@@ -4,6 +4,7 @@ import { getCategories, getFeaturedVeils, getSiteText } from "@/lib/data";
 import { photoUrl } from "@/lib/types";
 import FabricFold from "@/components/FabricFold";
 import VeilCard from "@/components/VeilCard";
+import EditorialVideo from "@/components/EditorialVideo";
 
 export default async function HomePage() {
   const [categories, featuredVeils, siteText] = await Promise.all([
@@ -136,13 +137,11 @@ export default async function HomePage() {
         </div>
         <div className="overflow-hidden rounded-3xl border border-line bg-black/5">
           {jerseyCategory?.video_url ? (
-            <video
+            <EditorialVideo
               src={jerseyCategory.video_url}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="h-full w-full object-cover"
+              poster={jerseyCategory.header_photo ? photoUrl(jerseyCategory.header_photo) : null}
+              alt="Jersey veil drape"
+              className="min-h-[280px]"
             />
           ) : (
             <div className="flex min-h-[280px] items-center justify-center bg-gradient-to-br from-linen to-white text-sm text-ink/40">

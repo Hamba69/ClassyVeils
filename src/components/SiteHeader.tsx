@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CartLauncher from "@/components/cart/CartLauncher";
 
 const categories = [
   { slug: "jersey", label: "Jersey" },
@@ -9,12 +10,12 @@ const categories = [
 
 export default function SiteHeader() {
   return (
-    <header className="border-b border-line/80 bg-linen/95 backdrop-blur">
-      <div className="mx-auto flex max-w-5xl flex-col gap-3 px-4 py-4 sm:px-6 md:flex-row md:items-center md:justify-between md:py-5">
+    <header className="sticky top-0 z-30 border-b border-line/80 bg-linen/92 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-5 px-4 py-4 sm:px-6 md:py-5">
         <Link href="/" className="font-display text-lg tracking-tight text-ink sm:text-xl">
           Classyveils<span className="text-plum">.</span>ug
         </Link>
-        <nav className="flex flex-wrap items-center gap-2 text-xs sm:text-sm md:justify-end">
+        <nav className="hidden items-center gap-2 text-sm md:flex md:justify-end">
           {categories.map((c) => (
             <Link
               key={c.slug}
@@ -36,6 +37,7 @@ export default function SiteHeader() {
           >
             Contact
           </Link>
+          <CartLauncher />
         </nav>
       </div>
     </header>

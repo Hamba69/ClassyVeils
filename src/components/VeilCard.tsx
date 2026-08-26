@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Veil, photoUrl } from "@/lib/types";
+import { Veil, editorialPhotoUrl, photoUrl } from "@/lib/types";
 import WhatsAppOrderButton from "./WhatsAppOrderButton";
+import AddToCartButton from "@/components/cart/AddToCartButton";
 
 export default function VeilCard({
   veil,
@@ -10,17 +11,21 @@ export default function VeilCard({
   veil: Veil;
   whatsappNumber: string;
 }) {
-  const cover = veil.photos[veil.cover_index] ?? veil.photos[0];
+  const realCover = veil.photos[veil.cover_index] ?? veil.photos[0];
+  const editorialCover = veil.model_photos?.[veil.editorial_cover_index] ?? veil.model_photos?.[0];
+  const usesEditorial = Boolean(veil.use_editorial_cover && editorialCover);
+  const cover = usesEditorial ? editorialCover : realCover;
+  const coverUrl = cover ? (usesEditorial ? editorialPhotoUrl(cover) : photoUrl(cover)) : null;
   const hover = veil.photos[1];
 
   return (
     <div className="group">
       <Link href={`/veils/${veil.category_slug}/${veil.id}`} className="block">
         <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-line">
-          {cover ? (
+          {coverUrl ? (
             <>
               <Image
-                src={photoUrl(cover)}
+                src={coverUrl}
                 alt={veil.name}
                 fill
                 className="object-cover transition duration-500 group-hover:scale-[1.03] group-hover:opacity-0"
@@ -62,7 +67,8 @@ export default function VeilCard({
       {veil.description && (
         <p className="mt-2 text-sm leading-relaxed text-ink/70">{veil.description}</p>
       )}
-      <div className="mt-3">
+      <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+        <AddToCartButton item={{ id: veil.id, name: veil.name, price: veil.price, photo: coverUrl }} />
         <WhatsAppOrderButton veilName={veil.name} whatsappNumber={whatsappNumber} />
       </div>
     </div>

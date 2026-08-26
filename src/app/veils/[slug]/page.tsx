@@ -4,6 +4,7 @@ import { getCategory, getSiteText, getVeils } from "@/lib/data";
 import { photoUrl } from "@/lib/types";
 import VeilCard from "@/components/VeilCard";
 import FabricFold from "@/components/FabricFold";
+import EditorialVideo from "@/components/EditorialVideo";
 
 export default async function CategoryPage({
   params,
@@ -66,7 +67,7 @@ export default async function CategoryPage({
 
       {category.video_url && (
         <section className="mt-10 overflow-hidden rounded-[2rem] border border-line bg-black/5">
-          <video src={category.video_url} autoPlay loop muted playsInline className="w-full object-cover" />
+          <EditorialVideo src={category.video_url} poster={category.header_photo ? photoUrl(category.header_photo) : null} alt={`${category.label} fabric in motion`} className="aspect-video w-full" />
         </section>
       )}
 

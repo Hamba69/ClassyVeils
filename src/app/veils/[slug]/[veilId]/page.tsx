@@ -5,6 +5,8 @@ import { getCategory, getSiteText, getVeilById, getVeils } from "@/lib/data";
 import { photoUrl } from "@/lib/types";
 import WhatsAppOrderButton from "@/components/WhatsAppOrderButton";
 import FabricFold from "@/components/FabricFold";
+import AddToCartButton from "@/components/cart/AddToCartButton";
+import EditorialVideo from "@/components/EditorialVideo";
 
 export async function generateMetadata({
   params,
@@ -47,14 +49,13 @@ export default async function VeilDetailPage({
       </Link>
       <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_0.9fr]">
         <section>
-          <div className="overflow-hidden rounded-[2rem] border border-line bg-line">
+          <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-line bg-line">
             {cover ? (
               <Image
                 src={photoUrl(cover)}
                 alt={`${veil.name} - ${category.label}, Classyveils.ug`}
-                width={1400}
-                height={1750}
-                className="h-full w-full object-cover"
+                fill
+                className="object-contain"
                 sizes="(min-width: 1024px) 52vw, 100vw"
               />
             ) : (
@@ -66,13 +67,12 @@ export default async function VeilDetailPage({
 
           <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
             {veil.photos.map((path) => (
-              <div key={path} className="overflow-hidden rounded-2xl border border-line bg-line">
+              <div key={path} className="relative aspect-square overflow-hidden rounded-2xl border border-line bg-line">
                 <Image
                   src={photoUrl(path)}
                   alt={`${veil.name} - ${category.label}, Classyveils.ug`}
-                  width={500}
-                  height={500}
-                  className="h-full w-full object-cover"
+                  fill
+                  className="object-contain"
                   sizes="(min-width: 1024px) 16vw, 30vw"
                 />
               </div>
@@ -105,10 +105,13 @@ export default async function VeilDetailPage({
             </ul>
           )}
           <div className="mt-6">
+            <div className="mb-3">
+              <AddToCartButton item={{ id: veil.id, name: veil.name, price: veil.price, photo: cover ? photoUrl(cover) : null }} />
+            </div>
             <WhatsAppOrderButton veilName={veil.name} whatsappNumber={siteText.whatsapp_number} />
           </div>
           {veil.video_url && (
-            <video src={veil.video_url} autoPlay loop muted playsInline className="mt-6 w-full rounded-3xl border border-line" />
+            <EditorialVideo src={veil.video_url} poster={cover ? photoUrl(cover) : null} alt={`${veil.name} fabric in motion`} className="mt-6 aspect-[4/5] w-full rounded-3xl border border-line" />
           )}
         </section>
       </div>
