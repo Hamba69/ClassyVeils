@@ -9,11 +9,12 @@ can reach.
 You said Supabase is already set up with Google OAuth working — good, this
 plugs straight into that.
 
-1. Open the SQL editor in your Supabase project and run
-   `supabase/migrations/0001_init.sql`. This creates the `categories`,
-   `veils`, `site_text`, and `allowed_admins` tables, seeds the four fabric
-   categories with the copy from the old site, sets up Row Level Security,
-   and creates the public `veil-photos` storage bucket.
+1. Link the Supabase CLI to the project and run `npx supabase db push`.
+   If you use the SQL editor instead, run every file in `supabase/migrations/`
+   in filename order. These migrations create the `categories`, `veils`,
+   `site_text`, and `allowed_admins` tables, seed the four fabric categories,
+   set up Row Level Security and Data API grants, and create the public
+   `veil-photos` storage bucket.
 2. Add the real admin emails — uncomment and run the last line of that file,
    or just run in the SQL editor:
    ```sql
@@ -33,7 +34,7 @@ Supabase -> Project Settings -> API:
 
 ```
 NEXT_PUBLIC_SUPABASE_URL=...
-NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=...
 ```
 
 Add the same two variables in Vercel -> Project Settings -> Environment
