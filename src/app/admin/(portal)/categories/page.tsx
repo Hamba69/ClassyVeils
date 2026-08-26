@@ -51,6 +51,14 @@ export default async function CategoriesPage() {
               className="mt-1 w-full rounded-md border border-line bg-white px-3 py-2 text-sm"
             />
           </div>
+          <div>
+            <label className="text-sm font-medium text-ink">Video URL (optional)</label>
+            <input
+              name="video_url"
+              defaultValue={c.video_url ?? ""}
+              className="mt-1 w-full rounded-md border border-line bg-white px-3 py-2 text-sm"
+            />
+          </div>
           <button
             type="submit"
             className="rounded-md bg-ink px-4 py-2 text-sm text-linen hover:bg-plum"

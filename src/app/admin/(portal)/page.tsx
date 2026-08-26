@@ -120,12 +120,21 @@ export default async function AdminDashboard() {
                 placeholder="Price in UGX (leave blank to say 'ask on WhatsApp')"
                 className="w-full rounded-md border border-line bg-white px-3 py-2 text-sm"
               />
+              <input
+                name="video_url"
+                placeholder="Video URL (optional)"
+                className="w-full rounded-md border border-line bg-white px-3 py-2 text-sm"
+              />
               <textarea
                 name="description"
                 placeholder="Short description"
                 rows={2}
                 className="w-full rounded-md border border-line bg-white px-3 py-2 text-sm"
               />
+              <label className="flex items-center gap-2 text-sm text-ink/70">
+                <input type="checkbox" name="is_featured" className="h-4 w-4" />
+                Feature on homepage
+              </label>
               <input
                 type="file"
                 name="photos"

@@ -20,14 +20,29 @@
   --font-body: var(--font-work-sans);
 }
 
+html {
+  background: var(--color-linen);
+  color: var(--color-ink);
+}
+
 body {
+  min-height: 100%;
   background: var(--color-linen);
   color: var(--color-ink);
   font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, .font-display {
+h1,
+h2,
+h3,
+.font-display {
   font-family: var(--font-display), ui-serif, Georgia, serif;
+}
+
+img {
+  display: block;
 }
 
 @media (prefers-reduced-motion: reduce) {

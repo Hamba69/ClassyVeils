@@ -14,7 +14,7 @@ export default function FabricFold({
     <svg
       viewBox="0 0 1200 60"
       preserveAspectRatio="none"
-      className={`h-[36px] w-full ${className}`}
+      className={`h-[24px] w-full sm:h-[36px] ${className}`}
       aria-hidden="true"
     >
       <path

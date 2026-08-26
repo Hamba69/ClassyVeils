@@ -73,6 +73,39 @@ export default async function EditVeilPage({
           />
         </div>
         <div>
+          <label className="text-sm font-medium text-ink">Video URL (optional)</label>
+          <input
+            name="video_url"
+            defaultValue={veil.video_url ?? ""}
+            className="mt-1 w-full rounded-md border border-line bg-white px-3 py-2 text-sm"
+          />
+        </div>
+        <div>
+          <label className="text-sm font-medium text-ink">Cover photo</label>
+          <div className="mt-2 grid grid-cols-3 gap-3">
+            {veil.photos.map((path, index) => (
+              <label key={path} className="cursor-pointer space-y-2 text-xs text-ink/70">
+                <div className="relative aspect-square overflow-hidden rounded-sm bg-line">
+                  <Image src={photoUrl(path)} alt="" fill className="object-cover" sizes="150px" />
+                </div>
+                <span className="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="cover_index"
+                    value={index}
+                    defaultChecked={index === veil.cover_index}
+                  />
+                  Use as cover
+                </span>
+              </label>
+            ))}
+          </div>
+        </div>
+        <label className="flex items-center gap-2 text-sm text-ink/70">
+          <input type="checkbox" name="is_featured" defaultChecked={veil.is_featured} className="h-4 w-4" />
+          Feature on homepage
+        </label>
+        <div>
           <label className="text-sm font-medium text-ink">Add more photos</label>
           <input type="file" name="photos" multiple accept="image/*" className="mt-1 w-full text-sm" />
         </div>

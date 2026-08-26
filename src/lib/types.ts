@@ -5,6 +5,7 @@ export type Category = {
   intro: string;
   bullets: string[];
   header_photo: string | null;
+  video_url: string | null;
   sort_order: number;
 };
 
@@ -15,6 +16,9 @@ export type Veil = {
   description: string;
   price: number | null;
   photos: string[];
+  cover_index: number;
+  is_featured: boolean;
+  video_url: string | null;
   visible: boolean;
   sort_order: number;
 };

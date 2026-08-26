@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Fraunces, Work_Sans } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
@@ -18,9 +18,15 @@ const workSans = Work_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Classyveils.ug — Classy and luxurious veils",
+  title: "Classyveils.ug - Classy and luxurious veils",
   description:
     "Jersey, chiffon, silk, and cotton ninja veils for everyday elegance and special occasions.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -30,7 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${fraunces.variable} ${workSans.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col bg-linen text-ink">
         <SiteHeader />
         <div className="flex-1">{children}</div>
         <SiteFooter />

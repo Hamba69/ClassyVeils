@@ -35,6 +35,9 @@ export async function createVeil(formData: FormData) {
     description: String(formData.get("description") || ""),
     price: priceRaw ? Number(priceRaw) : null,
     photos,
+    cover_index: 0,
+    is_featured: formData.get("is_featured") === "on",
+    video_url: String(formData.get("video_url") || "") || null,
     visible: true,
     sort_order: Date.now(),
   });
@@ -64,6 +67,9 @@ export async function updateVeil(veilId: string, formData: FormData) {
       description: String(formData.get("description") || ""),
       price: priceRaw ? Number(priceRaw) : null,
       photos: [...(existing?.photos ?? []), ...newPhotos],
+      cover_index: Number(formData.get("cover_index") ?? 0) || 0,
+      is_featured: formData.get("is_featured") === "on",
+      video_url: String(formData.get("video_url") || "") || null,
       updated_at: new Date().toISOString(),
     })
     .eq("id", veilId);
@@ -154,6 +160,7 @@ export async function updateCategoryText(formData: FormData) {
         .split("\n")
         .map((b) => b.trim())
         .filter(Boolean),
+      video_url: String(formData.get("video_url") || "") || null,
       updated_at: new Date().toISOString(),
     })
     .eq("slug", slug);
