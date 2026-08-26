@@ -6,7 +6,7 @@ import { useCart } from "@/lib/cart/CartContext";
 
 const tabs = [
   { href: "/", label: "Home", icon: "⌂" },
-  { href: "/veils/jersey", label: "Shop", icon: "◇" },
+  { href: "/shop", label: "Shop", icon: "◇" },
   { href: "/contact", label: "Contact", icon: "✦" },
 ];
 
@@ -19,7 +19,7 @@ export default function MobileTabBar() {
       key={tab.href}
       href={tab.href}
       className={`flex min-h-12 flex-col items-center justify-center rounded-2xl text-[0.65rem] transition ${
-        pathname === tab.href || (tab.label === "Shop" && pathname.startsWith("/veils/"))
+        pathname === tab.href || (tab.label === "Shop" && (pathname.startsWith("/veils/") || pathname === "/shop"))
           ? "bg-ink text-linen"
           : "text-ink/60"
       }`}

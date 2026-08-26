@@ -73,6 +73,21 @@ export async function getVeils(categorySlug: string): Promise<Veil[]> {
   return (data as Veil[]) ?? [];
 }
 
+export async function getAllVisibleVeils(): Promise<Veil[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("veils")
+    .select("*")
+    .eq("visible", true)
+    .order("category_slug", { ascending: true })
+    .order("sort_order", { ascending: true });
+  if (error) {
+    console.error("getAllVisibleVeils failed:", error.message);
+    return [];
+  }
+  return (data as Veil[]) ?? [];
+}
+
 export async function getFeaturedVeils(limit = 4): Promise<Veil[]> {
   const supabase = await createClient();
   const { data, error } = await supabase

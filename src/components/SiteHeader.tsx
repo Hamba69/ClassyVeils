@@ -16,6 +16,12 @@ export default function SiteHeader() {
           Classyveils<span className="text-plum">.</span>ug
         </Link>
         <nav className="hidden items-center gap-2 text-sm md:flex md:justify-end">
+          <Link
+            href="/shop"
+            className="shrink-0 rounded-full border border-ink bg-ink px-3 py-2 text-linen transition hover:border-plum hover:bg-plum"
+          >
+            Shop all
+          </Link>
           {categories.map((c) => (
             <Link
               key={c.slug}
@@ -33,7 +39,7 @@ export default function SiteHeader() {
           </Link>
           <Link
             href="/contact"
-            className="shrink-0 rounded-full border border-ink bg-ink px-3 py-2 text-linen transition hover:bg-plum hover:border-plum"
+            className="shrink-0 rounded-full border border-line bg-white/50 px-3 py-2 text-ink/75 transition hover:border-plum hover:text-plum"
           >
             Contact
           </Link>

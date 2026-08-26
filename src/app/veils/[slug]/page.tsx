@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getCategory, getSiteText, getVeils } from "@/lib/data";
-import { photoUrl } from "@/lib/types";
+import { editorialPhotoUrl, photoUrl } from "@/lib/types";
 import VeilCard from "@/components/VeilCard";
 import FabricFold from "@/components/FabricFold";
 import EditorialVideo from "@/components/EditorialVideo";
@@ -16,6 +16,14 @@ export default async function CategoryPage({
   if (!category) notFound();
 
   const [veils, siteText] = await Promise.all([getVeils(slug), getSiteText()]);
+  const campaignVeil = veils.find((veil) => veil.model_photos.length > 0);
+  const campaignPath = campaignVeil?.model_photos[campaignVeil.editorial_cover_index]
+    ?? campaignVeil?.model_photos[0];
+  const heroUrl = campaignPath
+    ? editorialPhotoUrl(campaignPath)
+    : category.header_photo
+      ? photoUrl(category.header_photo)
+      : null;
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
@@ -30,6 +38,9 @@ export default async function CategoryPage({
           <p className="mt-4 max-w-2xl text-sm leading-7 text-ink/70 sm:text-base">
             {category.intro}
           </p>
+          <p className="mt-5 inline-flex rounded-full border border-line bg-white/65 px-3 py-2 text-xs font-medium text-plum">
+            {veils.length} {veils.length === 1 ? "edit" : "edits"} available to order
+          </p>
 
           {category.bullets.length > 0 && (
             <ul className="mt-6 grid max-w-2xl gap-2 sm:grid-cols-2">
@@ -43,20 +54,25 @@ export default async function CategoryPage({
           )}
         </div>
 
-        <div className="overflow-hidden rounded-[2rem] border border-line bg-line">
-          {category.header_photo ? (
+        <div className="relative overflow-hidden rounded-[2rem] border border-line bg-line">
+          {heroUrl ? (
             <Image
-              src={photoUrl(category.header_photo)}
-              alt={`${category.label} veils`}
+              src={heroUrl}
+              alt={`${category.label} styled campaign portrait`}
               width={1200}
               height={1500}
-              className="h-full w-full object-cover"
+              className="aspect-[4/5] h-full w-full object-cover"
               sizes="(min-width: 1024px) 45vw, 100vw"
             />
           ) : (
             <div className="flex min-h-[24rem] items-center justify-center text-ink/30">
               Header photo coming soon
             </div>
+          )}
+          {campaignPath && (
+            <span className="absolute left-4 top-4 rounded-full bg-linen/90 px-3 py-1.5 text-[0.62rem] uppercase tracking-[0.2em] text-ink shadow-sm">
+              Styled editorial
+            </span>
           )}
         </div>
       </section>
@@ -74,9 +90,9 @@ export default async function CategoryPage({
       {veils.length === 0 ? (
         <p className="mt-8 text-ink/50 sm:mt-10">New {category.label.toLowerCase()} are on the way.</p>
       ) : (
-        <section className="mt-10 columns-1 gap-6 sm:columns-2 lg:columns-3">
+        <section className="mt-10 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           {veils.map((veil) => (
-            <div key={veil.id} className="mb-6 break-inside-avoid">
+            <div key={veil.id}>
               <VeilCard veil={veil} whatsappNumber={siteText.whatsapp_number} />
             </div>
           ))}

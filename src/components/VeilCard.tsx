@@ -12,6 +12,7 @@ export default function VeilCard({
   whatsappNumber: string;
 }) {
   const realCover = veil.photos[veil.cover_index] ?? veil.photos[0];
+  const realCoverUrl = realCover ? photoUrl(realCover) : null;
   const editorialCover = veil.model_photos?.[veil.editorial_cover_index] ?? veil.model_photos?.[0];
   const usesEditorial = Boolean(veil.use_editorial_cover && editorialCover);
   const cover = usesEditorial ? editorialCover : realCover;
@@ -19,7 +20,7 @@ export default function VeilCard({
   const hover = veil.photos[1];
 
   return (
-    <div className="group">
+    <article className="group">
       <Link href={`/veils/${veil.category_slug}/${veil.id}`} className="block">
         <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-line">
           {coverUrl ? (
@@ -49,7 +50,24 @@ export default function VeilCard({
           )}
           {veil.is_featured && (
             <span className="absolute left-3 top-3 rounded-full bg-linen/90 px-2.5 py-1 text-[0.62rem] uppercase tracking-[0.22em] text-ink shadow-sm">
-              Loved lately
+              Signature edit
+            </span>
+          )}
+          <span className="absolute right-3 top-3 rounded-full bg-sage/90 px-2.5 py-1 text-[0.62rem] uppercase tracking-[0.16em] text-white shadow-sm">
+            Available
+          </span>
+          {usesEditorial && realCoverUrl && (
+            <span className="absolute bottom-3 right-3 h-20 w-16 overflow-hidden rounded-xl border-2 border-linen bg-linen shadow-lg sm:h-24 sm:w-20">
+              <Image
+                src={realCoverUrl}
+                alt={`${veil.name} actual product`}
+                fill
+                className="object-cover"
+                sizes="80px"
+              />
+              <span className="absolute inset-x-0 bottom-0 bg-ink/72 py-1 text-center text-[0.5rem] uppercase tracking-[0.08em] text-white">
+                Actual
+              </span>
             </span>
           )}
         </div>
@@ -59,18 +77,18 @@ export default function VeilCard({
           <h3 className="font-display text-base leading-tight text-ink sm:text-lg">
             {veil.name}
           </h3>
-          {veil.price != null && (
-            <p className="text-sm text-ink/60">UGX {veil.price.toLocaleString()}</p>
-          )}
+          <p className="mt-1 text-sm font-medium text-plum">
+            {veil.price != null ? `UGX ${veil.price.toLocaleString()}` : "Price on request"}
+          </p>
         </div>
       </div>
       {veil.description && (
-        <p className="mt-2 text-sm leading-relaxed text-ink/70">{veil.description}</p>
+        <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-ink/68">{veil.description}</p>
       )}
       <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
         <AddToCartButton item={{ id: veil.id, name: veil.name, price: veil.price, photo: coverUrl }} />
         <WhatsAppOrderButton veilName={veil.name} whatsappNumber={whatsappNumber} />
       </div>
-    </div>
+    </article>
   );
 }

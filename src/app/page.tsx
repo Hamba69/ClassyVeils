@@ -30,8 +30,8 @@ export default async function HomePage() {
               "Jersey, chiffon, silk, and cotton ninja veils - made for everyday elegance."}
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Link href="/veils/silk" className="rounded-full bg-ink px-5 py-3 text-sm text-linen">
-              Shop silk
+            <Link href="/shop" className="rounded-full bg-ink px-5 py-3 text-sm text-linen">
+              Shop the full edit
             </Link>
             <Link
               href="/contact"
@@ -76,7 +76,7 @@ export default async function HomePage() {
               Featured veils
             </h2>
           </div>
-          <Link href="/veils/jersey" className="text-sm text-plum underline underline-offset-4">
+          <Link href="/shop" className="text-sm text-plum underline underline-offset-4">
             Browse all
           </Link>
         </div>

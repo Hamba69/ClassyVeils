@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getCategory, getSiteText, getVeilById, getVeils } from "@/lib/data";
-import { photoUrl } from "@/lib/types";
+import { editorialPhotoUrl, photoUrl } from "@/lib/types";
 import WhatsAppOrderButton from "@/components/WhatsAppOrderButton";
 import FabricFold from "@/components/FabricFold";
 import AddToCartButton from "@/components/cart/AddToCartButton";
@@ -40,6 +40,12 @@ export default async function VeilDetailPage({
   if (!category || !veil) notFound();
 
   const cover = veil.photos[veil.cover_index] ?? veil.photos[0];
+  const editorialCover = veil.model_photos[veil.editorial_cover_index] ?? veil.model_photos[0];
+  const heroUrl = veil.use_editorial_cover && editorialCover
+    ? editorialPhotoUrl(editorialCover)
+    : cover
+      ? photoUrl(cover)
+      : null;
   const more = peers.filter((item) => item.id !== veil.id).slice(0, 4);
 
   return (
@@ -50,12 +56,12 @@ export default async function VeilDetailPage({
       <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_0.9fr]">
         <section>
           <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-line bg-line">
-            {cover ? (
+            {heroUrl ? (
               <Image
-                src={photoUrl(cover)}
+                src={heroUrl}
                 alt={`${veil.name} - ${category.label}, Classyveils.ug`}
                 fill
-                className="object-contain"
+                className={veil.use_editorial_cover && editorialCover ? "object-cover" : "object-contain"}
                 sizes="(min-width: 1024px) 52vw, 100vw"
               />
             ) : (
@@ -63,9 +69,18 @@ export default async function VeilDetailPage({
                 Photo coming soon
               </div>
             )}
+            {veil.use_editorial_cover && editorialCover && (
+              <span className="absolute left-4 top-4 rounded-full bg-linen/90 px-3 py-1.5 text-[0.62rem] uppercase tracking-[0.2em] text-ink shadow-sm">
+                Styled editorial
+              </span>
+            )}
           </div>
 
-          <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
+          <div className="mt-4 flex items-center justify-between gap-4">
+            <p className="text-[0.62rem] uppercase tracking-[0.2em] text-ink/50">Actual product photography</p>
+            <p className="text-xs text-ink/45">What you order</p>
+          </div>
+          <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
             {veil.photos.map((path) => (
               <div key={path} className="relative aspect-square overflow-hidden rounded-2xl border border-line bg-line">
                 <Image
@@ -78,6 +93,27 @@ export default async function VeilDetailPage({
               </div>
             ))}
           </div>
+
+          {veil.model_photos.length > 1 && (
+            <>
+              <p className="mt-6 text-[0.62rem] uppercase tracking-[0.2em] text-ink/50">More styling inspiration</p>
+              <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
+                {veil.model_photos
+                  .filter((path) => path !== editorialCover)
+                  .map((path) => (
+                    <div key={path} className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line bg-line">
+                      <Image
+                        src={editorialPhotoUrl(path)}
+                        alt={`${veil.name} styling inspiration`}
+                        fill
+                        className="object-cover"
+                        sizes="(min-width: 1024px) 16vw, 30vw"
+                      />
+                    </div>
+                  ))}
+              </div>
+            </>
+          )}
         </section>
 
         <section className="lg:pt-2">
@@ -88,12 +124,20 @@ export default async function VeilDetailPage({
             {veil.name}
           </h1>
           <p className="mt-3 text-lg text-ink/70">
-            {veil.price != null ? `UGX ${veil.price.toLocaleString()}` : "Ask on WhatsApp"}
+            {veil.price != null ? `UGX ${veil.price.toLocaleString()}` : "Price confirmed when ordering"}
+          </p>
+          <p className="mt-4 inline-flex rounded-full bg-sage/10 px-3 py-2 text-xs font-medium text-sage">
+            Available to order
           </p>
           <p className="mt-5 text-sm leading-7 text-ink/75 sm:text-base">{veil.description}</p>
           <p className="mt-5 text-sm leading-7 text-ink/75 sm:text-base">
             {category.intro}
           </p>
+          {editorialCover && (
+            <p className="mt-5 rounded-2xl border border-line bg-white/55 p-4 text-xs leading-6 text-ink/58">
+              Styled campaign photography is shown for inspiration. Use the actual product gallery to review the veil you will receive.
+            </p>
+          )}
           {category.bullets.length > 0 && (
             <ul className="mt-5 grid gap-2">
               {category.bullets.map((b, i) => (
@@ -106,12 +150,12 @@ export default async function VeilDetailPage({
           )}
           <div className="mt-6">
             <div className="mb-3">
-              <AddToCartButton item={{ id: veil.id, name: veil.name, price: veil.price, photo: cover ? photoUrl(cover) : null }} />
+              <AddToCartButton item={{ id: veil.id, name: veil.name, price: veil.price, photo: heroUrl }} />
             </div>
             <WhatsAppOrderButton veilName={veil.name} whatsappNumber={siteText.whatsapp_number} />
           </div>
           {veil.video_url && (
-            <EditorialVideo src={veil.video_url} poster={cover ? photoUrl(cover) : null} alt={`${veil.name} fabric in motion`} className="mt-6 aspect-[4/5] w-full rounded-3xl border border-line" />
+            <EditorialVideo src={veil.video_url} poster={heroUrl} alt={`${veil.name} fabric in motion`} className="mt-6 aspect-[4/5] w-full rounded-3xl border border-line" />
           )}
         </section>
       </div>
