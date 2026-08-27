@@ -1,12 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { photoUrl, Category, Veil } from "@/lib/types";
 import { createVeil, deleteVeil, moveVeil, toggleVisible } from "@/app/admin/actions";
 import ImageUploadPreview from "@/components/admin/ImageUploadPreview";
 
 export default async function AdminDashboard() {
-  const supabase = await createClient();
+  const supabase = createAdminClient();
   const [{ data: categories }, { data: veils }] = await Promise.all([
     supabase.from("categories").select("*").order("sort_order", { ascending: true }),
     supabase.from("veils").select("*").order("sort_order", { ascending: true }),

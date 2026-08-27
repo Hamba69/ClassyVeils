@@ -1,24 +1,17 @@
 "use server";
 
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { endAdminSession, requireAdminSession } from "@/lib/admin/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 async function requireAdmin() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user?.email) throw new Error("Authentication required");
-  const { data: allowed } = await supabase
-    .from("allowed_admins")
-    .select("email")
-    .eq("email", user.email)
-    .maybeSingle();
-  if (!allowed) throw new Error("Administrator access required");
-  return supabase;
+  await requireAdminSession();
+  return createAdminClient();
 }
 
 async function uploadPhotos(files: File[], categorySlug: string, bucket = "veil-photos") {
-  const supabase = await createClient();
+  const supabase = await requireAdmin();
   const paths: string[] = [];
 
   for (const file of files) {
@@ -273,7 +266,6 @@ export async function updateOrderStatus(orderId: string, status: string) {
 }
 
 export async function signOut() {
-  const supabase = await createClient();
-  await supabase.auth.signOut();
+  await endAdminSession();
   redirect("/admin/login");
 }

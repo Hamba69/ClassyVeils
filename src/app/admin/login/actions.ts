@@ -1,33 +1,17 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
-
-const ADMIN_USERNAME = "admin";
-const ADMIN_AUTH_EMAIL = "admin@classyveils.ug";
+import { startAdminSession } from "@/lib/admin/server";
+import { credentialsAreValid } from "@/lib/admin/session";
 
 export async function signInWithCredentials(formData: FormData) {
-  const username = String(formData.get("username") ?? "").trim().toLowerCase();
+  const username = String(formData.get("username") ?? "").trim();
   const password = String(formData.get("password") ?? "");
 
-  if (username !== ADMIN_USERNAME || password.length === 0) {
+  if (!credentialsAreValid(username, password)) {
     redirect("/admin/login?error=invalid_credentials");
   }
 
-  const supabase = await createClient();
-  const { data, error } = await supabase.auth.signInWithPassword({ email: ADMIN_AUTH_EMAIL, password });
-  if (error || !data.user?.email) redirect("/admin/login?error=invalid_credentials");
-
-  const { data: allowed, error: allowError } = await supabase
-    .from("allowed_admins")
-    .select("email")
-    .eq("email", data.user.email)
-    .maybeSingle();
-
-  if (allowError || !allowed) {
-    await supabase.auth.signOut();
-    redirect("/admin/login?error=not_authorized");
-  }
-
+  await startAdminSession();
   redirect("/admin");
 }

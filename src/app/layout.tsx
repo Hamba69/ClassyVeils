@@ -22,6 +22,10 @@ export const metadata: Metadata = {
   title: "Classyveils.ug - Classy and luxurious veils",
   description:
     "Jersey, chiffon, silk, and cotton ninja veils for everyday elegance and special occasions.",
+  icons: {
+    icon: "/icon.png",
+    apple: "/icon.png",
+  },
 };
 
 export const viewport: Viewport = {

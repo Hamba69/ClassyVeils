@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { editorialPhotoUrl, photoUrl, Veil } from "@/lib/types";
 import { deleteEditorialPhoto, deletePhoto, moveVeilPhoto, updateVeil } from "@/app/admin/actions";
 import ImageUploadPreview from "@/components/admin/ImageUploadPreview";
@@ -11,7 +11,7 @@ export default async function EditVeilPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const supabase = await createClient();
+  const supabase = createAdminClient();
   const { data: veil } = await supabase.from("veils").select("*").eq("id", id).single<Veil>();
 
   if (!veil) notFound();

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import CartLauncher from "@/components/cart/CartLauncher";
+import BrandLogo from "@/components/BrandLogo";
 
 const categories = [
   { slug: "jersey", label: "Jersey" },
@@ -12,8 +13,11 @@ export default function SiteHeader() {
   return (
     <header className="sticky top-0 z-30 border-b border-line/80 bg-linen/92 backdrop-blur-xl">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-5 px-4 py-4 sm:px-6 md:py-5">
-        <Link href="/" className="font-display text-lg tracking-tight text-ink sm:text-xl">
-          Classyveils<span className="text-plum">.</span>ug
+        <Link href="/" className="flex items-center gap-2.5 text-ink" aria-label="Classy Veils home">
+          <BrandLogo variant="mark" priority />
+          <span className="font-display text-lg tracking-tight sm:text-xl">
+            Classyveils<span className="text-plum">.</span>ug
+          </span>
         </Link>
         <nav className="hidden items-center gap-2 text-sm md:flex md:justify-end">
           <Link

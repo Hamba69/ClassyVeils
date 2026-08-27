@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { updateOrderStatus } from "@/app/admin/actions";
 
 type OrderItem = {
@@ -27,7 +27,7 @@ const statusLabels: Record<OrderRequest["status"], string> = {
 };
 
 export default async function AdminOrdersPage() {
-  const supabase = await createClient();
+  const supabase = createAdminClient();
   const { data, error } = await supabase
     .from("order_requests")
     .select("id, customer_name, contact, notes, items, status, created_at")

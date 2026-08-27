@@ -1,9 +1,9 @@
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { Category } from "@/lib/types";
 import { updateCategoryText } from "@/app/admin/actions";
 
 export default async function CategoriesPage() {
-  const supabase = await createClient();
+  const supabase = createAdminClient();
   const { data: categories } = await supabase
     .from("categories")
     .select("*")

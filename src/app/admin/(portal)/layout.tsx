@@ -1,13 +1,19 @@
 import Link from "next/link";
 import { signOut } from "@/app/admin/actions";
+import { requireAdminSession } from "@/lib/admin/server";
+import BrandLogo from "@/components/BrandLogo";
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default async function AdminLayout({ children }: { children: React.ReactNode }) {
+  await requireAdminSession();
   return (
     <div className="min-h-screen bg-linen">
       <header className="border-b border-line bg-linen">
         <div className="mx-auto max-w-5xl px-4 py-4 sm:px-6">
           <div className="flex items-center justify-between gap-4">
-            <span className="font-display text-xl text-ink">Classyveils portal</span>
+            <span className="flex items-center gap-2.5 font-display text-xl text-ink">
+              <BrandLogo variant="mark" />
+              Classyveils portal
+            </span>
             <form action={signOut}>
               <button className="min-h-11 rounded-full px-3 text-sm text-ink/55 hover:text-plum">Sign out</button>
             </form>

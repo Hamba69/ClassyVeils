@@ -1,9 +1,8 @@
 import { signInWithCredentials } from "./actions";
+import BrandLogo from "@/components/BrandLogo";
 
 const messages: Record<string, string> = {
   invalid_credentials: "The username or password is incorrect.",
-  not_authorized: "This account is not authorized to use the portal.",
-  auth_failed: "Sign-in did not complete. Please try again.",
 };
 
 export default async function LoginPage({
@@ -18,9 +17,10 @@ export default async function LoginPage({
   return (
     <main className="flex min-h-screen items-center justify-center bg-linen px-4 py-12 sm:px-6">
       <div className="w-full max-w-sm rounded-[2rem] border border-line bg-white/55 p-6 shadow-[0_24px_80px_rgba(43,38,34,0.10)] sm:p-8">
-        <p className="text-[0.65rem] uppercase tracking-[0.25em] text-ink/45">Classyveils.ug</p>
-        <h1 className="mt-3 font-display text-3xl text-ink">Site portal</h1>
-        <p className="mt-2 text-sm leading-6 text-ink/60">Sign in with your administrator credentials.</p>
+        <BrandLogo className="mx-auto max-w-56" priority />
+        <p className="mt-2 text-center text-[0.65rem] uppercase tracking-[0.25em] text-ink/45">Private administration</p>
+        <h1 className="mt-3 text-center font-display text-3xl text-ink">Site portal</h1>
+        <p className="mt-2 text-center text-sm leading-6 text-ink/60">Sign in with your administrator credentials.</p>
 
         {errorMessage && (
           <p role="alert" className="mt-5 rounded-xl border border-plum/25 bg-plum/5 px-4 py-3 text-sm text-plum">

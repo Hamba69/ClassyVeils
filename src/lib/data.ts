@@ -5,7 +5,7 @@ const fallbackSiteText: Record<string, string> = {
   hero_headline: "Classy and luxurious veils",
   hero_subhead: "Jersey, chiffon, silk, and cotton ninja veils — made for everyday elegance.",
   about_bio: "Founded by Anisha B Yusurah, Classyveils.ug brings together veils selected for comfort, elegance, and quality.",
-  whatsapp_number: "",
+  whatsapp_number: "+256705019297",
   contact_phone: "",
   instagram_handle: "",
 };
