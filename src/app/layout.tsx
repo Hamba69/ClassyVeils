@@ -18,14 +18,17 @@ const workSans = Work_Sans({
   subsets: ["latin"],
 });
 
+const metadataBase = new URL(
+  process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000",
+);
+
 export const metadata: Metadata = {
+  metadataBase,
   title: "Classyveils.ug - Classy and luxurious veils",
   description:
     "Jersey, chiffon, silk, and cotton ninja veils for everyday elegance and special occasions.",
-  icons: {
-    icon: "/icon.png",
-    apple: "/icon.png",
-  },
 };
 
 export const viewport: Viewport = {
