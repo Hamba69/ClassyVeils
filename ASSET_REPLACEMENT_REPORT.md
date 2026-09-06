@@ -1,5 +1,7 @@
 # New collection implementation — 5 September 2026
 
+Historical record: the 6 September design refresh and current development-server state are documented in `DESIGN_REFRESH_REPORT.md`. The user subsequently restored the deleted local asset folders; those originals are preserved, and only the restored AI editorials are reused as design artwork. The removal and production-preview statements below describe the earlier task, not the current filesystem/server state.
+
 The approved pink, gold and white design is implemented on the homepage and collection page. The gold logo, app icons and share image all derive from the supplied brand artwork. Wording takes inspiration from Anisha's supplied HTML page: elegance, comfort, confidence and modest fashion.
 
 ## Display and asset sources

@@ -1,51 +1,21 @@
-import Image from 'next/image';
 import Link from 'next/link';
+import EditorialImage from '@/components/EditorialImage';
+import Reveal from '@/components/Reveal';
+import CollectionGallery from '@/components/CollectionGallery';
 import { getSiteText } from '@/lib/data';
 import { enquiryUrl } from '@/lib/collection';
-import CollectionGallery from '@/components/CollectionGallery';
 
 export default async function HomePage() {
   const text = await getSiteText();
-  return (
-    <main>
-      <section className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-10 sm:px-8 lg:grid-cols-2 lg:gap-16 lg:py-16">
-        <div className="max-w-xl">
-          <p className="text-xs uppercase tracking-[0.3em] text-sage">Classy and luxurious veils & scarves</p>
-          <h1 className="mt-6 font-display text-5xl leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">Celebrate<br /><span className="italic text-plum">your veil.</span></h1>
-          <p className="mt-6 max-w-md text-base leading-8 text-ink/70">Elegance, comfort and everyday confidence. Thoughtfully selected veils to help you express your style and embrace the beauty of modest fashion.</p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/shop" className="rounded-full bg-plum px-6 py-3.5 text-sm text-white transition hover:bg-ink">Explore the collection</Link>
-            <a href={enquiryUrl(text.whatsapp_number)} className="rounded-full border border-line bg-white px-6 py-3.5 text-sm text-ink">Talk to Anisha <span aria-hidden="true">↗</span></a>
-          </div>
-          <p className="mt-8 text-xs uppercase tracking-[0.2em] text-ink/45">Everyday elegance · Special moments</p>
-        </div>
-        <div className="relative pb-8 pr-9 sm:pr-14">
-          <div className="relative aspect-[3/4] overflow-hidden rounded-t-[10rem] rounded-b-2xl bg-line">
-            <Image unoptimized src="/collection/img-3177.webp" alt="Pale pink veil styled with a soft blue dress" fill preload sizes="(min-width: 1024px) 45vw, 85vw" className="object-cover" />
-          </div>
-          <div className="absolute bottom-0 right-0 w-[38%] overflow-hidden rounded-t-[4rem] rounded-b-xl border-4 border-white shadow-lg">
-            <Image unoptimized src="/collection/img-9833.webp" alt="A softly draped rose-coloured veil" width={480} height={640} className="aspect-[3/4] w-full object-cover" sizes="(min-width: 1024px) 18vw, 33vw" />
-          </div>
-        </div>
-      </section>
-      <section className="border-y border-line bg-white/75 px-5 py-7 text-center">
-        <p className="font-display text-xl italic text-ink/75 sm:text-2xl">Where elegance meets everyday comfort.</p>
-      </section>
-      <section className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
-        <div className="mb-9 flex flex-wrap items-end justify-between gap-4">
-          <div><p className="text-xs uppercase tracking-[0.25em] text-sage">In the spotlight</p><h2 className="mt-3 font-display text-3xl sm:text-4xl">Find your next favourite.</h2></div>
-          <Link href="/shop" className="text-sm text-plum underline underline-offset-4">View the full collection ↗</Link>
-        </div>
-        <CollectionGallery whatsappNumber={text.whatsapp_number} limit={6} />
-      </section>
-      <section className="mx-auto mb-10 max-w-6xl px-5 sm:px-8">
-        <div className="rounded-[2rem] border border-line bg-white px-6 py-12 text-center sm:px-12">
-          <p className="text-xs uppercase tracking-[0.25em] text-sage">A personal touch</p>
-          <h2 className="mt-4 font-display text-3xl sm:text-4xl">Let’s find your perfect drape.</h2>
-          <p className="mx-auto mt-4 max-w-lg text-sm leading-7 text-ink/65">From a comfortable everyday look to a special occasion, Anisha can help you choose. Send your favourite photo to confirm the fabric, colour, price and availability.</p>
-          <a href={enquiryUrl(text.whatsapp_number)} className="mt-7 inline-block rounded-full bg-plum px-6 py-3 text-sm text-white">Enquire on WhatsApp</a>
-        </div>
-      </section>
-    </main>
-  );
+  return <main>
+    <section className="hero-grid">
+      <div className="hero-copy"><p className="eyebrow">Classy and luxurious veils & scarves</p><h1>A beautiful<br />way to be<br /><em>yourself.</em></h1><p className="hero-description">A graceful drape. A colour you love. That quiet feeling of confidence. Celebrate the beauty of modest fashion, your way.</p><div className="button-row"><Link className="pill" href="/shop">Discover the collection <span>↗</span></Link><Link className="text-link" href="/lookbook">Find your inspiration</Link></div><div className="hero-note"><span className="gold-star" aria-hidden="true">✳</span><span>Everyday elegance.<br />Extraordinary little moments.</span></div></div>
+      <div className="hero-art"><EditorialImage name="rose" alt="AI editorial: a rose-coloured floral veil in a sunlit ivory interior" priority /><span className="hero-script" aria-hidden="true">softly, beautifully you</span><span className="edition-tag">THE CLASSY EDIT / 01</span></div>
+    </section>
+    <div className="statement-strip"><span>Made for your everyday</span><span aria-hidden="true">✧</span><span>Styled for your own story</span><span aria-hidden="true">✧</span><span>Celebrate your veil</span></div>
+    <Reveal className="section-shell"><div className="section-heading"><div><p className="eyebrow">The art of getting dressed</p><h2>Different moods.<br /><em>Always you.</em></h2></div><p>Let colour set the tone. Explore our illustrated style stories, then find your own expression in the collection.</p></div><div className="mood-grid"><Link href="/lookbook#golden" className="mood-card"><EditorialImage name="gold" alt="AI editorial styling in mustard gold" /><div><span>01 / Warm & radiant</span><h3>A golden state of mind</h3><span aria-hidden="true">↗</span></div></Link><Link href="/lookbook#quiet" className="mood-card offset-card"><EditorialImage name="taupe" alt="AI editorial styling in soft taupe" /><div><span>02 / Soft & effortless</span><h3>The quiet kind of lovely</h3><span aria-hidden="true">↗</span></div></Link></div></Reveal>
+    <Reveal className="rose-story"><div className="story-type"><p className="eyebrow">More than a finishing touch</p><h2>Your veil.<br />Your mood.<br /><em>Your moment.</em></h2><p>Elegance and everyday comfort belong together. Discover a little inspiration for the way you like to wear yours.</p><Link href="/styling" className="pill ivory-pill">Explore styling notes ↗</Link></div><EditorialImage name="blue" alt="AI editorial: an ice-blue veil styled for a light, graceful look" /><span className="story-flower" aria-hidden="true">✳</span></Reveal>
+    <Reveal className="section-shell"><div className="section-heading"><div><p className="eyebrow">The real collection</p><h2>Something <em>catch your eye?</em></h2></div><Link className="text-link" href="/shop">See all 51 photographs ↗</Link></div><p className="collection-note">Actual collection photography. Ask Anisha to confirm fabric, price and availability for your favourite reference.</p><CollectionGallery whatsappNumber={text.whatsapp_number} limit={3} /></Reveal>
+    <Reveal className="anisha-panel"><p className="eyebrow">A note from ClassyVeils</p><h2>Class is in the details.<br /><em>Care is in the conversation.</em></h2><p>A beautiful veil should feel like you. Whether you’re drawn to a soft neutral or a little more colour, let’s find your next favourite together.</p><div className="button-row"><a className="pill" href={enquiryUrl(text.whatsapp_number)}>Talk to Anisha ↗</a><Link href="/about" className="text-link">Our story</Link></div><span className="signature">With love, ClassyVeils</span></Reveal>
+  </main>;
 }
