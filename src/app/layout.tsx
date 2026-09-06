@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   metadataBase,
   title: "Classyveils.ug - Classy and luxurious veils",
   description:
-    "Jersey, chiffon, silk, and cotton ninja veils for everyday elegance and special occasions.",
+    "Classy and luxurious veils and scarves. Discover everyday elegance, graceful styling and the latest ClassyVeils collection with Anisha.",
 };
 
 export const viewport: Viewport = {
@@ -48,7 +48,7 @@ export default function RootLayout({
         <PublicExperience header={<SiteHeader />} footer={<SiteFooter />}>
           {children}
         </PublicExperience>
-        <Analytics />
+        {process.env.VERCEL ? <Analytics /> : null}
       </body>
     </html>
   );

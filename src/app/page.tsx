@@ -1,186 +1,49 @@
-import Link from "next/link";
-import Image from "next/image";
-import { getCategories, getFeaturedVeils, getSiteText } from "@/lib/data";
-import { photoUrl } from "@/lib/types";
-import FabricFold from "@/components/FabricFold";
-import VeilCard from "@/components/VeilCard";
-import EditorialVideo from "@/components/EditorialVideo";
+import Image from 'next/image';
+import Link from 'next/link';
+import { getSiteText } from '@/lib/data';
+import { enquiryUrl } from '@/lib/collection';
+import CollectionGallery from '@/components/CollectionGallery';
 
 export default async function HomePage() {
-  const [categories, featuredVeils, siteText] = await Promise.all([
-    getCategories(),
-    getFeaturedVeils(),
-    getSiteText(),
-  ]);
-  const jerseyCategory = categories.find((c) => c.slug === "jersey");
-  const heroImages = categories.flatMap((c) => (c.header_photo ? [c.header_photo] : [])).slice(0, 3);
-
+  const text = await getSiteText();
   return (
     <main>
-      <section className="mx-auto grid max-w-6xl gap-8 px-4 pb-8 pt-8 sm:px-6 sm:pb-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-end lg:pt-14">
-        <div className="max-w-2xl">
-          <p className="text-[0.65rem] uppercase tracking-[0.25em] text-ink/50 sm:text-xs">
-            Classyveils.ug
-          </p>
-          <h1 className="mt-3 font-display text-4xl leading-[0.98] tracking-[-0.03em] text-ink sm:text-5xl lg:text-6xl">
-            {siteText.hero_headline || "Classy and luxurious veils"}
-          </h1>
-          <p className="mt-4 max-w-xl text-sm leading-7 text-ink/72 sm:text-base">
-            {siteText.hero_subhead ||
-              "Jersey, chiffon, silk, and cotton ninja veils - made for everyday elegance."}
-          </p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link href="/shop" className="rounded-full bg-ink px-5 py-3 text-sm text-linen">
-              Shop the full edit
-            </Link>
-            <Link
-              href="/contact"
-              className="rounded-full border border-line bg-white/70 px-5 py-3 text-sm text-ink/75"
-            >
-              Contact Anisha
-            </Link>
+      <section className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-10 sm:px-8 lg:grid-cols-2 lg:gap-16 lg:py-16">
+        <div className="max-w-xl">
+          <p className="text-xs uppercase tracking-[0.3em] text-sage">Classy and luxurious veils & scarves</p>
+          <h1 className="mt-6 font-display text-5xl leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">Celebrate<br /><span className="italic text-plum">your veil.</span></h1>
+          <p className="mt-6 max-w-md text-base leading-8 text-ink/70">Elegance, comfort and everyday confidence. Thoughtfully selected veils to help you express your style and embrace the beauty of modest fashion.</p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link href="/shop" className="rounded-full bg-plum px-6 py-3.5 text-sm text-white transition hover:bg-ink">Explore the collection</Link>
+            <a href={enquiryUrl(text.whatsapp_number)} className="rounded-full border border-line bg-white px-6 py-3.5 text-sm text-ink">Talk to Anisha <span aria-hidden="true">↗</span></a>
+          </div>
+          <p className="mt-8 text-xs uppercase tracking-[0.2em] text-ink/45">Everyday elegance · Special moments</p>
+        </div>
+        <div className="relative pb-8 pr-9 sm:pr-14">
+          <div className="relative aspect-[3/4] overflow-hidden rounded-t-[10rem] rounded-b-2xl bg-line">
+            <Image unoptimized src="/collection/img-3177.webp" alt="Pale pink veil styled with a soft blue dress" fill preload sizes="(min-width: 1024px) 45vw, 85vw" className="object-cover" />
+          </div>
+          <div className="absolute bottom-0 right-0 w-[38%] overflow-hidden rounded-t-[4rem] rounded-b-xl border-4 border-white shadow-lg">
+            <Image unoptimized src="/collection/img-9833.webp" alt="A softly draped rose-coloured veil" width={480} height={640} className="aspect-[3/4] w-full object-cover" sizes="(min-width: 1024px) 18vw, 33vw" />
           </div>
         </div>
-
-        <div className="grid grid-cols-12 gap-3">
-          {heroImages.map((path, i) => (
-            <div
-              key={path}
-              className={`relative overflow-hidden rounded-3xl bg-line ${
-                i === 0 ? "col-span-12 aspect-[4/5]" : i === 1 ? "col-span-7 aspect-[3/4]" : "col-span-5 aspect-[4/5] translate-y-6"
-              }`}
-            >
-              <Image
-                src={photoUrl(path)}
-                alt="Classyveils featured photography"
-                fill
-                className="object-cover"
-                sizes="(min-width: 1024px) 36vw, 100vw"
-              />
-            </div>
-          ))}
-        </div>
       </section>
-
-      <div className="mx-auto max-w-4xl">
-        <FabricFold />
-      </div>
-
-      <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
-        <div className="flex items-end justify-between gap-4">
-          <div>
-            <p className="text-[0.65rem] uppercase tracking-[0.25em] text-ink/50 sm:text-xs">
-              Loved lately
-            </p>
-            <h2 className="mt-2 font-display text-2xl text-ink sm:text-3xl">
-              Featured veils
-            </h2>
-          </div>
-          <Link href="/shop" className="text-sm text-plum underline underline-offset-4">
-            Browse all
-          </Link>
-        </div>
-        <div className="mt-6 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
-          {featuredVeils.map((veil) => (
-            <VeilCard key={veil.id} veil={veil} whatsappNumber={siteText.whatsapp_number} />
-          ))}
-        </div>
+      <section className="border-y border-line bg-white/75 px-5 py-7 text-center">
+        <p className="font-display text-xl italic text-ink/75 sm:text-2xl">Where elegance meets everyday comfort.</p>
       </section>
-
-      <div className="mx-auto max-w-4xl">
-        <FabricFold />
-      </div>
-
-      <section className="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-14">
-        <div className="grid gap-6 sm:gap-8 md:grid-cols-2">
-          {categories.map((c) => (
-            <Link key={c.slug} href={`/veils/${c.slug}`} className="group block">
-              <div className="relative aspect-[5/6] overflow-hidden rounded-2xl bg-line sm:aspect-[16/10]">
-                {c.header_photo ? (
-                  <Image
-                    src={photoUrl(c.header_photo)}
-                    alt={c.label}
-                    fill
-                    className="object-cover transition duration-500 group-hover:scale-[1.03]"
-                    sizes="(min-width: 768px) 50vw, 100vw"
-                  />
-                ) : (
-                  <div className="flex h-full items-center justify-center text-ink/30">
-                    {c.label}
-                  </div>
-                )}
-              </div>
-              <h2 className="mt-3 font-display text-xl text-ink sm:mt-4 sm:text-2xl">
-                {c.label}
-              </h2>
-              <p className="mt-1 text-sm text-ink/60">{c.tagline}</p>
-            </Link>
-          ))}
+      <section className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
+        <div className="mb-9 flex flex-wrap items-end justify-between gap-4">
+          <div><p className="text-xs uppercase tracking-[0.25em] text-sage">In the spotlight</p><h2 className="mt-3 font-display text-3xl sm:text-4xl">Find your next favourite.</h2></div>
+          <Link href="/shop" className="text-sm text-plum underline underline-offset-4">View the full collection ↗</Link>
         </div>
+        <CollectionGallery whatsappNumber={text.whatsapp_number} limit={6} />
       </section>
-
-      <div className="mx-auto max-w-4xl">
-        <FabricFold />
-      </div>
-
-      <section className="mx-auto grid max-w-5xl gap-6 px-4 py-10 sm:px-6 sm:py-14 lg:grid-cols-[1fr_1.1fr]">
-        <div>
-          <p className="text-[0.65rem] uppercase tracking-[0.25em] text-ink/50 sm:text-xs">
-            See it drape
-          </p>
-          <h2 className="mt-2 font-display text-2xl text-ink sm:text-3xl">
-            Jersey styling clip
-          </h2>
-          <p className="mt-3 text-sm leading-7 text-ink/70">
-            A short motion preview helps show stretch, movement, and fall more clearly than stills alone.
-          </p>
-        </div>
-        <div className="overflow-hidden rounded-3xl border border-line bg-black/5">
-          {jerseyCategory?.video_url ? (
-            <EditorialVideo
-              src={jerseyCategory.video_url}
-              poster={jerseyCategory.header_photo ? photoUrl(jerseyCategory.header_photo) : null}
-              alt="Jersey veil drape"
-              className="min-h-[280px]"
-            />
-          ) : (
-            <div className="flex min-h-[280px] items-center justify-center bg-gradient-to-br from-linen to-white text-sm text-ink/40">
-              Jersey video coming soon
-            </div>
-          )}
-        </div>
-      </section>
-
-      <div className="mx-auto max-w-4xl">
-        <FabricFold />
-      </div>
-
-      <section className="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-14">
-        <div className="flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-line bg-white/60 px-5 py-5">
-          <div>
-            <p className="text-[0.65rem] uppercase tracking-[0.25em] text-ink/50 sm:text-xs">
-              Stay close
-            </p>
-            <p className="mt-2 font-display text-xl text-ink">WhatsApp and Instagram</p>
-          </div>
-          <div className="flex flex-wrap gap-3 text-sm">
-            {siteText.whatsapp_number && (
-              <a
-                className="rounded-full bg-ink px-4 py-2 text-linen"
-                href={`https://wa.me/${siteText.whatsapp_number.replace(/[^\d]/g, "")}`}
-              >
-                WhatsApp
-              </a>
-            )}
-            {siteText.instagram_handle && (
-              <a
-                className="rounded-full border border-line px-4 py-2 text-ink/75"
-                href={`https://instagram.com/${siteText.instagram_handle.replace("@", "")}`}
-              >
-                Instagram
-              </a>
-            )}
-          </div>
+      <section className="mx-auto mb-10 max-w-6xl px-5 sm:px-8">
+        <div className="rounded-[2rem] border border-line bg-white px-6 py-12 text-center sm:px-12">
+          <p className="text-xs uppercase tracking-[0.25em] text-sage">A personal touch</p>
+          <h2 className="mt-4 font-display text-3xl sm:text-4xl">Let’s find your perfect drape.</h2>
+          <p className="mx-auto mt-4 max-w-lg text-sm leading-7 text-ink/65">From a comfortable everyday look to a special occasion, Anisha can help you choose. Send your favourite photo to confirm the fabric, colour, price and availability.</p>
+          <a href={enquiryUrl(text.whatsapp_number)} className="mt-7 inline-block rounded-full bg-plum px-6 py-3 text-sm text-white">Enquire on WhatsApp</a>
         </div>
       </section>
     </main>

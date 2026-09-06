@@ -1,23 +1,12 @@
-import Image from "next/image";
-import navigationArtwork from "../../assets/CVA/icons.png";
-
 const positions = {
-  home: "-0.55rem",
-  shop: "-3.3rem",
-  cart: "-6.35rem",
-  contact: "-9.9rem",
+  home: "M3 10 12 3l9 7v10H3z M9 20v-7h6v7",
+  shop: "M5 7h14l1 14H4z M9 7V5a3 3 0 0 1 6 0v2",
+  cart: "M2 3h3l3 12h11l3-8H6 M10 20h.01 M18 20h.01",
+  contact: "M3 4h18v14H8l-5 3z M7 9h10 M7 13h7",
 } as const;
 
 export default function BrandNavIcon({ name }: { name: keyof typeof positions }) {
   return (
-    <span aria-hidden="true" className="relative block h-8 w-12 overflow-hidden rounded-lg bg-[#fbf8f3]">
-      <Image
-        src={navigationArtwork}
-        alt=""
-        className="absolute top-[-3rem] h-auto w-[13.75rem] max-w-none"
-        style={{ left: positions[name] }}
-        sizes="220px"
-      />
-    </span>
+    <svg aria-hidden="true" viewBox="0 0 24 24" className="size-7" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d={positions[name]} /></svg>
   );
 }

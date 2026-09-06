@@ -11,10 +11,10 @@ const fallbackSiteText: Record<string, string> = {
 };
 
 const fallbackCategories: Category[] = [
-  { slug: "jersey", label: "Jersey Veils", tagline: "Where elegance meets everyday comfort.", intro: "Soft, breathable jersey with a smooth stretch and an easy, secure drape.", bullets: ["Soft premium jersey", "Breathable all-day comfort", "Secure non-slip fit"], header_photo: "/Jersey Veils/303fd6ae68457b8704af986640dc797e-1280.webp", video_url: null, sort_order: 1 },
-  { slug: "chiffon", label: "Chiffon Veils", tagline: "Where elegance meets effortless beauty.", intro: "Lightweight, airy chiffon that drapes beautifully for a soft, refined look.", bullets: ["Lightweight and airy", "Soft graceful drape", "Ideal for elegant layering"], header_photo: "/Chiffon Veils/29f79ee91b4862f75e76d8a14ca908f5-1280.webp", video_url: null, sort_order: 2 },
-  { slug: "silk", label: "Silk Veils", tagline: "Where luxury meets timeless elegance.", intro: "Smooth silk with an elegant sheen for special occasions and elevated everyday styling.", bullets: ["Soft luxurious feel", "Elegant natural sheen", "Beautiful occasion-ready drape"], header_photo: "/Silk Veils/1e9cbaeaa4dcfab51a69a69a079b378c-1280.webp", video_url: null, sort_order: 3 },
-  { slug: "cotton-ninja", label: "Cotton Ninja Veils", tagline: "Where comfort meets everyday coverage.", intro: "Breathable cotton ninja veils designed for full coverage and all-day comfort.", bullets: ["Soft breathable blend", "Full everyday coverage", "Easy all-day styling"], header_photo: "/Cotton Ninja Veils/1f12c2e4dcfd62d8a24cae0ff9aabcff-1280.webp", video_url: null, sort_order: 4 },
+  { slug: "jersey", label: "Jersey Veils", tagline: "Where elegance meets everyday comfort.", intro: "Soft, breathable jersey with a smooth stretch and an easy, secure drape.", bullets: ["Soft premium jersey", "Breathable all-day comfort", "Secure non-slip fit"], header_photo: null, video_url: null, sort_order: 1 },
+  { slug: "chiffon", label: "Chiffon Veils", tagline: "Where elegance meets effortless beauty.", intro: "Lightweight, airy chiffon that drapes beautifully for a soft, refined look.", bullets: ["Lightweight and airy", "Soft graceful drape", "Ideal for elegant layering"], header_photo: null, video_url: null, sort_order: 2 },
+  { slug: "silk", label: "Silk Veils", tagline: "Where luxury meets timeless elegance.", intro: "Smooth silk with an elegant sheen for special occasions and elevated everyday styling.", bullets: ["Soft luxurious feel", "Elegant natural sheen", "Beautiful occasion-ready drape"], header_photo: null, video_url: null, sort_order: 3 },
+  { slug: "cotton-ninja", label: "Cotton Ninja Veils", tagline: "Where comfort meets everyday coverage.", intro: "Breathable cotton ninja veils designed for full coverage and all-day comfort.", bullets: ["Soft breathable blend", "Full everyday coverage", "Easy all-day styling"], header_photo: null, video_url: null, sort_order: 4 },
 ];
 
 function withFallbackPhoto(category: Category): Category {
@@ -32,7 +32,7 @@ export async function getSiteText(): Promise<Record<string, string>> {
   }
   const map: Record<string, string> = {};
   (data ?? []).forEach((row) => (map[row.key] = row.value));
-  return map;
+  return { ...fallbackSiteText, ...map };
 }
 
 export async function getCategories(): Promise<Category[]> {

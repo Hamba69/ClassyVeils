@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --color-linen: #faf7f2;
-  --color-ink: #2b2622;
-  --color-line: #e4dcd0;
-  --color-plum: #5c2a3a;
-  --color-rose: #c98f86;
-  --color-sage: #6b7a5e;
+  --color-linen: #fff8fb;
+  --color-ink: #362832;
+  --color-line: #ecdce2;
+  --color-plum: #a51c61;
+  --color-rose: #eab6cc;
+  --color-sage: #8a6a24;
 }
 
 @theme inline {
