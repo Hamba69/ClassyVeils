@@ -1,8 +1,95 @@
-import type { Metadata } from 'next';
-import Link from 'next/link';
-import EditorialImage from '@/components/EditorialImage';
+﻿import type { Metadata } from "next";
+import Link from "next/link";
+import CollectionPhoto from "@/components/CollectionPhoto";
+import DrapeLine from "@/components/DrapeLine";
 
-export const metadata: Metadata = { title: 'Styling notes | ClassyVeils', description: 'Thoughtful colour pairings, draping inspiration and simple ways to make your veil your own.' };
+export const metadata: Metadata = {
+  title: "Styling notes | ClassyVeils",
+  description:
+    "Compare colours, fabrics, and drapes in Anisha’s ClassyVeils edit.",
+};
 export default function StylingPage() {
-  return <main><header className="page-intro"><p className="eyebrow">The little details</p><h1>Style it your way.<br /><em>Wear it with confidence.</em></h1><p>No complicated rules. Just a few thoughtful starting points for a look that feels like you.</p></header><section className="styling-grid section-shell"><EditorialImage name="ivory" alt="AI illustration: an ivory veil styled with soft neutral clothing" /><div className="styling-notes">{[['01', 'Start with a feeling.', 'Soft and understated, bright and joyful, or polished for an occasion? Choose the mood first; let your colours follow.'], ['02', 'Find your colour conversation.', 'Try a tonal look with shades from the same family, or let one contrasting colour become the focal point. Ivory makes a lovely quiet companion.'], ['03', 'Give the drape a little space.', 'Try a relaxed fold or a more closely framed shape. Adjust until you feel comfortable, and let the rest of your outfit complement the silhouette.']].map(([n, title, copy]) => <article key={n}><span>{n}</span><div><h2>{title}</h2><p>{copy}</p></div></article>)}</div></section><section className="anisha-panel"><p className="eyebrow">Before you choose</p><h2>A few good <em>questions.</em></h2><div className="styling-faq">{[['How do I choose a fabric?', 'Tell Anisha how you plan to wear your veil and the feel you prefer. Ask her to confirm the fabric, opacity and drape of the particular photo you love.'], ['Can I order the illustrated looks?', 'The AI lookbook is inspiration only. Browse the real collection photographs and share a reference with Anisha to check what is available.'], ['How should I care for my veil?', 'Ask for the care instructions for your specific piece before washing or ironing. Different fabrics and finishes need different care.']].map(([q,a]) => <details key={q}><summary>{q}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}</div><Link className="pill" href="/contact">Let’s find your drape ↗</Link></section></main>;
+  return (
+    <main>
+      <header className="page-intro">
+        <p className="eyebrow">Styling with Anisha</p>
+        <h1>
+          Look at the fold,
+          <br />
+          <em>
+            then the whole outfit.
+            <DrapeLine underline />
+          </em>
+        </h1>
+        <p>
+          Some veils have more than one view. Use them together when you’re
+          deciding how you’d like the fabric to sit.
+        </p>
+      </header>
+      <section className="styling-grid section-shell">
+        <CollectionPhoto
+          reference="9778"
+          alt="Back view of an ivory ClassyVeils scarf over a white outfit, reference 9778"
+        />
+        <div className="styling-notes">
+          {[
+            [
+              "Compare both sides",
+              "Compare ivory references 9773 and 9778. One shows the front details; the other shows the length down the back. I’d look at both before choosing a fold.",
+            ],
+            [
+              "Bring your outfit into the conversation",
+              "Send me a note about your outfit alongside a ClassyVeils reference. Mustard in 9678 and navy in 9403 give us two very different starting points against white.",
+            ],
+            [
+              "Keep the reference handy",
+              "Use the enquiry link below a veil. It adds the reference number to your message, so you don’t have to describe which pink or blue you mean.",
+            ],
+          ].map(([title, copy]) => (
+            <article key={title}>
+              <div>
+                <h2>{title}</h2>
+                <p>{copy}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+      <section className="anisha-panel">
+        <p className="eyebrow">Before you choose</p>
+        <h2>
+          What would you like
+          <br />
+          <em>to ask me?</em>
+        </h2>
+        <div className="styling-faq">
+          {[
+            [
+              "Which fabric is in my chosen veil?",
+              "Send me the reference number so I can confirm the fabric and finish. I’m happy to tell you how it feels and how it wears.",
+            ],
+            [
+              "Is the veil I like available?",
+              "The card shows availability as unconfirmed until I have checked it. Send the reference before making plans around a particular colour.",
+            ],
+            [
+              "How do I care for it?",
+              "Ask me for care instructions with your chosen ClassyVeils reference. I need to confirm the fabric and finish before advising you about washing or ironing.",
+            ],
+          ].map(([question, answer]) => (
+            <details key={question}>
+              <summary>
+                {question}
+                <span aria-hidden="true">+</span>
+              </summary>
+              <p>{answer}</p>
+            </details>
+          ))}
+        </div>
+        <Link className="pill" href="/contact">
+          Ask Anisha ↗
+        </Link>
+      </section>
+    </main>
+  );
 }

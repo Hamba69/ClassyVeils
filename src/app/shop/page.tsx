@@ -1,22 +1,78 @@
-import type { Metadata } from 'next';
-import CollectionGallery from '@/components/CollectionGallery';
-import { getSiteText } from '@/lib/data';
+import type { Metadata } from "next";
+import Link from "next/link";
+import CollectionGallery from "@/components/CollectionGallery";
+import CategoryCircles, { kidsCategory } from "@/components/CategoryCircles";
+import DrapeLine from "@/components/DrapeLine";
+import { getSiteText, getCategories, getAllVisibleVeils } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: 'The new collection | ClassyVeils',
-  description: 'Explore the latest ClassyVeils photography and enquire with Anisha about your favourite veil.',
+  title: "The collection | ClassyVeils",
+  description:
+    "Browse Anisha’s considered edit of veils and scarves, then send Anisha the reference number for the style you have in mind.",
 };
-
-export default async function ShopPage() {
-  const text = await getSiteText();
+export default async function ShopPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ category?: string }>;
+}) {
+  const [text, categories, veils, query] = await Promise.all([
+    getSiteText(),
+    getCategories(),
+    getAllVisibleVeils(),
+    searchParams,
+  ]);
+  const selected = categories.find(
+    (category) => category.slug === query.category,
+  );
   return (
     <main>
       <header className="page-intro">
-        <p className="text-xs uppercase tracking-[0.3em] text-sage">Discover ClassyVeils</p>
-        <h1 className="mt-4 font-display text-4xl leading-tight sm:text-6xl">Find the veil that<br /><span className="italic text-plum">feels like you.</span></h1>
-        <p className="mt-5 text-base leading-8 text-ink/65">Beautiful colours, graceful drapes and effortless styling. Browse our latest photographs and enquire with Anisha to confirm the fabric, price and availability.</p>
-      </header><section className="section-shell"><div className="mb-8 flex flex-wrap justify-between gap-3 border-b border-line pb-5 text-xs text-plum"><p>51 photographs · The real collection</p><p>Choose a photo → Share its reference → Confirm with Anisha</p></div>
-      <CollectionGallery whatsappNumber={text.whatsapp_number} />
-    </section></main>
+        <p className="eyebrow">Anisha’s edit</p>
+        <h1>
+          {selected ? (
+            selected.label
+          ) : (
+            <>
+              Which one caught
+              <br />
+              <em>
+                your eye?
+                <DrapeLine underline />
+              </em>
+            </>
+          )}
+        </h1>
+        <p>
+          {selected?.intro ||
+            "Every veil has a reference number. Send it to me with your questions and I can tell you about its fabric, shade, and availability."}
+        </p>
+      </header>
+      <section className="section-shell">
+        <CategoryCircles categories={categories} />
+        <div className="collection-toolbar">
+          <p>
+          {selected ? selected.label : "51 veils and scarves"}
+          </p>
+          <Link className="text-link" href="/shop">
+            View the full edit
+          </Link>
+        </div>
+        <CollectionGallery
+          whatsappNumber={text.whatsapp_number}
+          veils={veils}
+          category={selected?.slug}
+        />
+        {!kidsCategory(categories) ? (
+          <aside className="kids-content-gap" id="kids-veils">
+            <p className="eyebrow">Kids Veils</p>
+            <h2>The children’s collection is being prepared.</h2>
+            <p>
+              The children’s edit is being prepared. Please check back when
+              Anisha’s selection is ready.
+            </p>
+          </aside>
+        ) : null}
+      </section>
+    </main>
   );
 }

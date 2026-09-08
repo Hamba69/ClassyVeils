@@ -119,7 +119,7 @@ export default function CartSheet() {
           {lines.length === 0 ? (
             <div className="flex min-h-52 flex-col items-center justify-center text-center">
               <p className="font-display text-2xl text-ink">Your bag is waiting.</p>
-              <p className="mt-2 max-w-xs text-sm leading-6 text-ink/55">Add a veil you love, then submit the complete order for confirmation.</p>
+              <p className="mt-2 max-w-xs text-sm leading-6 text-ink/55">Add a veil you like, then send the order for confirmation.</p>
             </div>
           ) : (
             <ul className="divide-y divide-line">

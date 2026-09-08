@@ -45,7 +45,7 @@ export default function VeilCard({
             </>
           ) : (
             <div className="flex h-full items-center justify-center text-sm text-ink/30">
-              Photo coming soon
+              Details coming soon
             </div>
           )}
           {veil.is_featured && (

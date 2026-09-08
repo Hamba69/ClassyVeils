@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Work_Sans } from "next/font/google";
+import { Fraunces } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
+import PromoStrip from "@/components/PromoStrip";
 import SiteFooter from "@/components/SiteFooter";
 import PublicExperience from "@/components/cart/PublicExperience";
 import { Analytics } from "@vercel/analytics/next";
@@ -13,9 +15,14 @@ const fraunces = Fraunces({
   axes: ["opsz", "SOFT", "WONK"],
 });
 
-const workSans = Work_Sans({
-  variable: "--font-work-sans",
-  subsets: ["latin"],
+const generalSans = localFont({
+  variable: "--font-general-sans",
+  src: [
+    { path: "./fonts/general-sans-400.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/general-sans-500.woff2", weight: "500", style: "normal" },
+    { path: "./fonts/general-sans-600.woff2", weight: "600", style: "normal" },
+  ],
+  display: "swap",
 });
 
 const metadataBase = new URL(
@@ -26,9 +33,9 @@ const metadataBase = new URL(
 
 export const metadata: Metadata = {
   metadataBase,
-  title: "Classyveils.ug - Classy and luxurious veils",
+  title: "Classyveils.ug - Find your shade",
   description:
-    "Classy and luxurious veils and scarves. Discover everyday elegance, graceful styling and the latest ClassyVeils collection with Anisha.",
+    "Explore Anisha’s considered edit of veils and scarves, selected for colour, comfort, and effortless styling.",
 };
 
 export const viewport: Viewport = {
@@ -43,9 +50,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${workSans.variable} h-full antialiased`}>
+    <html
+      lang="en"
+      className={`${fraunces.variable} ${generalSans.variable} h-full antialiased`}
+    >
       <body className="min-h-full flex flex-col bg-linen text-ink">
-        <PublicExperience header={<SiteHeader />} footer={<SiteFooter />}>
+        <PublicExperience
+          header={<SiteHeader promo={<PromoStrip />} />}
+          footer={<SiteFooter />}
+        >
           {children}
         </PublicExperience>
         {process.env.VERCEL ? <Analytics /> : null}

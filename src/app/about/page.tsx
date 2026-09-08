@@ -1,22 +1,54 @@
-import { getSiteText } from "@/lib/data";
-import EditorialImage from '@/components/EditorialImage';
-import Link from 'next/link';
+﻿import CollectionPhoto from "@/components/CollectionPhoto";
+import DrapeLine from "@/components/DrapeLine";
+import Link from "next/link";
 
-export default async function AboutPage() {
-  const siteText = await getSiteText();
-
+export default function AboutPage() {
   return (
-    <main><header className="page-intro"><p className="eyebrow">Our story</p><h1>Elegance is personal.<br /><em>So are we.</em></h1><p>A celebration of modest fashion, beautiful colour and the confidence to be yourself.</p></header><section className="section-shell styling-grid"><EditorialImage name="rose" alt="AI editorial illustration reflecting the soft rose ClassyVeils palette" /><div>
-      <p className="text-[0.65rem] uppercase tracking-[0.25em] text-ink/50 sm:text-xs">About</p>
-      <h1 className="mt-3 font-display text-3xl leading-[1.05] text-ink sm:text-4xl">
-        Anisha B Yusurah
-      </h1>
-      <p className="mt-5 whitespace-pre-line text-sm leading-7 text-ink/80 sm:mt-6 sm:text-base">
-        {siteText.about_bio}
-      </p>
-      <p className="mt-6 text-sm leading-8 text-ink/70 sm:text-base">At ClassyVeils, we believe every woman deserves a veil that combines elegance, comfort and quality. Our collection celebrates modest fashion, from easy everyday styling to graceful looks for special occasions.</p>
-      <p className="mt-6 font-display text-2xl italic text-plum">Celebrate your veil. Wear it with confidence.</p>
-      <Link href="/contact" className="pill mt-8">Say hello to Anisha ↗</Link>
-      </div></section></main>
+    <main>
+      <header className="page-intro">
+        <p className="eyebrow">Meet Anisha</p>
+        <h1>
+          I’m Anisha.
+          <br />
+          <em>
+            Welcome to ClassyVeils.
+            <DrapeLine underline />
+          </em>
+        </h1>
+        <p>
+          My full name is Anisha B Yusurah. Classyveils.ug is my edit of veils and
+          scarves chosen for colour, comfort, and an easy sense of occasion.
+          WhatsApp is the easiest way to ask me about one.
+        </p>
+      </header>
+      <section className="section-shell styling-grid">
+        <CollectionPhoto
+          reference="9840"
+          alt="Rose veil in the ClassyVeils collection, reference 9840"
+        />
+        <div>
+          <p className="eyebrow">A note about this collection</p>
+          <h2 className="story-heading">
+            The right veil is a
+            <br />
+            starting point.
+          </h2>
+          <p className="story-copy">
+            I’ve brought 51 ClassyVeils references together here. Each one gives
+            us something specific to talk about: a shade, an edge detail, a
+            fabric, or the way it falls from the shoulder.
+          </p>
+          <p className="story-copy">
+            When you message me, include the reference you have in mind. I’ll
+            confirm the piece, availability, and delivery details with you before
+            you order.
+          </p>
+          <p className="signature">With love, Anisha</p>
+          <Link href="/contact" className="pill mt-8">
+            Say hello ↗
+          </Link>
+        </div>
+      </section>
+    </main>
   );
 }

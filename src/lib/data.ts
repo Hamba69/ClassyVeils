@@ -2,19 +2,19 @@ import { createClient } from "@/lib/supabase/server";
 import { Category, Veil } from "@/lib/types";
 
 const fallbackSiteText: Record<string, string> = {
-  hero_headline: "Classy and luxurious veils",
-  hero_subhead: "Jersey, chiffon, silk, and cotton ninja veils — made for everyday elegance.",
-  about_bio: "Founded by Anisha B Yusurah, Classyveils.ug brings together veils selected for comfort, elegance, and quality.",
+  hero_headline: "Find your shade of the day",
+  hero_subhead: "A considered edit of jersey, chiffon, silk, and cotton veils, chosen by Anisha for colour, comfort, and an easy sense of occasion.",
+  about_bio: "Anisha B Yusurah’s edit brings together veils and scarves chosen for their colour, comfort, and the way they make an outfit feel.",
   whatsapp_number: "+256705019297",
   contact_phone: "",
   instagram_handle: "",
 };
 
 const fallbackCategories: Category[] = [
-  { slug: "jersey", label: "Jersey Veils", tagline: "Where elegance meets everyday comfort.", intro: "Soft, breathable jersey with a smooth stretch and an easy, secure drape.", bullets: ["Soft premium jersey", "Breathable all-day comfort", "Secure non-slip fit"], header_photo: null, video_url: null, sort_order: 1 },
-  { slug: "chiffon", label: "Chiffon Veils", tagline: "Where elegance meets effortless beauty.", intro: "Lightweight, airy chiffon that drapes beautifully for a soft, refined look.", bullets: ["Lightweight and airy", "Soft graceful drape", "Ideal for elegant layering"], header_photo: null, video_url: null, sort_order: 2 },
-  { slug: "silk", label: "Silk Veils", tagline: "Where luxury meets timeless elegance.", intro: "Smooth silk with an elegant sheen for special occasions and elevated everyday styling.", bullets: ["Soft luxurious feel", "Elegant natural sheen", "Beautiful occasion-ready drape"], header_photo: null, video_url: null, sort_order: 3 },
-  { slug: "cotton-ninja", label: "Cotton Ninja Veils", tagline: "Where comfort meets everyday coverage.", intro: "Breathable cotton ninja veils designed for full coverage and all-day comfort.", bullets: ["Soft breathable blend", "Full everyday coverage", "Easy all-day styling"], header_photo: null, video_url: null, sort_order: 4 },
+  { slug: "jersey", label: "Jersey", tagline: "Soft structure for everyday wear.", intro: "Matte, breathable jersey with gentle stretch and an easy drape that stays comfortable through the day.", bullets: ["Soft, breathable jersey", "Gentle stretch", "Easy everyday drape"], header_photo: null, video_url: null, sort_order: 1 },
+  { slug: "chiffon", label: "Chiffon", tagline: "Light, sheer, and easy to layer.", intro: "Airy chiffon with a fine texture and a graceful fall, lovely when you want movement around the face and shoulder.", bullets: ["Lightweight texture", "Airy movement", "A soft layered finish"], header_photo: null, video_url: null, sort_order: 2 },
+  { slug: "silk", label: "Silk", tagline: "A little sheen, beautifully held.", intro: "Smooth silk with a quiet sheen and fluid folds for days when the fabric should carry the look.", bullets: ["Smooth hand", "Subtle natural sheen", "Fluid folds"], header_photo: null, video_url: null, sort_order: 3 },
+  { slug: "cotton-ninja", label: "Cotton ninja", tagline: "Comfort with a clean, covered shape.", intro: "Breathable cotton pieces with a secure shape and full coverage for simple, considered everyday dressing.", bullets: ["Breathable cotton blend", "Full everyday coverage", "A secure, simple shape"], header_photo: null, video_url: null, sort_order: 4 },
 ];
 
 function withFallbackPhoto(category: Category): Category {
