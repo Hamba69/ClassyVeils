@@ -1,5 +1,6 @@
 import Link from "next/link";
 import FooterAdminTrigger from "./FooterAdminTrigger";
+import SecretDownloadTrigger from "./SecretDownloadTrigger";
 
 export default function SiteFooter() {
   return (
@@ -24,7 +25,7 @@ export default function SiteFooter() {
       </div>
       <div className="footer-bottom">
         <span>Classyveils.ug · Anisha B Yusurah</span>
-        <span>With love, Anisha</span>
+        <SecretDownloadTrigger />
       </div>
     </footer>
   );
