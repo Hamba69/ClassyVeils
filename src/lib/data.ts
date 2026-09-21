@@ -5,7 +5,7 @@ const fallbackSiteText: Record<string, string> = {
   hero_headline: "Find your shade of the day",
   hero_subhead: "A considered edit of jersey, chiffon, silk, and cotton veils, chosen by Anisha for colour, comfort, and an easy sense of occasion.",
   about_bio: "Anisha B Yusurah’s edit brings together veils and scarves chosen for their colour, comfort, and the way they make an outfit feel.",
-  whatsapp_number: "+256705019297",
+  whatsapp_number: "0789460004",
   contact_phone: "",
   instagram_handle: "",
 };

@@ -1,3 +1,5 @@
+import { normalizeWhatsAppNumber } from "@/lib/collection";
+
 export default function WhatsAppOrderButton({
   veilName,
   whatsappNumber,
@@ -10,7 +12,7 @@ export default function WhatsAppOrderButton({
   const message = encodeURIComponent(
     `Hi! I'd like to order the ${veilName} from Classyveils.ug.`
   );
-  const digits = whatsappNumber.replace(/[^\d]/g, "");
+  const digits = normalizeWhatsAppNumber(whatsappNumber);
   const href = `https://wa.me/${digits}?text=${message}`;
 
   return (

@@ -1,5 +1,6 @@
 import type { CartLine } from "./CartContext";
 import { voice, ui, shopperText } from "@/content/voice";
+import { normalizeWhatsAppNumber } from "@/lib/collection";
 
 export function buildPicksWhatsAppUrl(number: string, lines: CartLine[], details: { name?: string; contact?: string; notes?: string } = {}) {
   const body = [
@@ -10,6 +11,6 @@ export function buildPicksWhatsAppUrl(number: string, lines: CartLine[], details
     details.notes?.trim() ? ui.wearingLine + ": " + details.notes.trim() : "",
     voice.picks.whatsappClose,
   ].filter(Boolean).join("\n");
-  return "https://wa.me/" + number.replace(/\D/g, "") + "?text=" + encodeURIComponent(shopperText(body));
+  return "https://wa.me/" + normalizeWhatsAppNumber(number) + "?text=" + encodeURIComponent(shopperText(body));
 }
 export const buildCartWhatsAppUrl = buildPicksWhatsAppUrl;

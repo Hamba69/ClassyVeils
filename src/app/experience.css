@@ -55,6 +55,13 @@
 .cv-hero-photo { position: absolute; inset: 0; overflow: hidden; }
 .cv-hero-layer { object-fit: cover; object-position: 50% 24%; opacity: 0; transform: scale(1.08); transition: opacity 700ms; }
 .cv-hero-layer.cv-active { opacity: 1; }
+@media (max-width: 767px) {
+  .cv-hero { min-height: 0; }
+  .cv-hero-photo { position: relative; height: clamp(280px, 52vw, 420px); }
+  .cv-hero-layer { object-position: 52% 24%; transform: scale(1.04); }
+  .cv-hero-copy { width: 100%; min-height: 0; padding: 32px 24px; background: var(--color-ivory); }
+  .cv-hero-reference { top: 232px; bottom: auto; right: 16px; }
+}
 .cv-hero-copy { position: relative; isolation: isolate; width: 55%; min-height: 820px; padding: 56px 5vw; background: rgb(251 245 239 / .96); }
 .cv-hero-copy::before { position: absolute; content: ""; inset: 0; background: var(--cv-hero-tint); z-index: -1; transition: background 400ms; }
 .cv-hero h1 { font-size: clamp(52px, 5.5vw, 80px); line-height: 1.05; letter-spacing: -.045em; margin-bottom: 32px; }

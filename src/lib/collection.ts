@@ -13,8 +13,16 @@ export const collection = imageIds.map((id) => ({
   alt: id === 5794 ? 'Red veil draped on a display mannequin' : `ClassyVeils styling photograph, reference ${id}`,
 }));
 
+export function normalizeWhatsAppNumber(number: string) {
+  const digits = number.replace(/\D/g, '');
+  if (!digits) return digits;
+  if (digits.startsWith('256')) return digits;
+  if (digits.startsWith('0')) return '256' + digits.slice(1);
+  return digits;
+}
+
 export function enquiryUrl(number: string, reference?: string, label?: string, second?: string, secondLabel?: string) {
   const text = reference && second ? voice.picks.whatsappBoth(/^[0-9]{4}$/.test(reference) ? reference : label || reference, /^[0-9]{4}$/.test(second) ? second : secondLabel || second)
     : reference ? (/^[0-9]{4}$/.test(reference) ? voice.picks.whatsappSingle(reference) : ui.messageItem(label || reference)) : voice.picks.whatsappHello;
-  return 'https://wa.me/' + number.replace(/\D/g, '') + '?text=' + encodeURIComponent(shopperText(text));
+  return 'https://wa.me/' + normalizeWhatsAppNumber(number) + '?text=' + encodeURIComponent(shopperText(text));
 }
