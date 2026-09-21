@@ -1,3 +1,4 @@
+import { voice, shopperText } from "@/content/voice";
 import Image from "next/image";
 import Link from "next/link";
 import { Category, photoUrl } from "@/lib/types";
@@ -14,7 +15,7 @@ export default function CategoryCircles({
   categories: Category[];
 }) {
   return (
-    <nav className="category-circles" aria-label="Fabric categories">
+    <nav className="category-circles" aria-label={voice.shop.fabricLabel}>
       {categories.map((category) => (
         <Link
           href={`/shop?category=${encodeURIComponent(category.slug)}`}
@@ -36,7 +37,7 @@ export default function CategoryCircles({
               </span>
             )}
           </span>
-          <span>{category.label}</span>
+          <span>{shopperText(category.label)}</span>
         </Link>
       ))}
     </nav>

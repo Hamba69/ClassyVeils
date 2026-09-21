@@ -1,0 +1,41 @@
+{
+  "base": "a9d4b01",
+  "routes": [
+    {
+      "route": "/",
+      "baseline": 198670,
+      "updated": 217572,
+      "added": 18902
+    },
+    {
+      "route": "/shop",
+      "baseline": 198336,
+      "updated": 216103,
+      "added": 17767
+    },
+    {
+      "route": "/lookbook",
+      "baseline": 198336,
+      "updated": 212355,
+      "added": 14019
+    },
+    {
+      "route": "/styling",
+      "baseline": 198235,
+      "updated": 213518,
+      "added": 15283
+    },
+    {
+      "route": "/about",
+      "baseline": 198235,
+      "updated": 216103,
+      "added": 17868
+    },
+    {
+      "route": "/contact",
+      "baseline": 198235,
+      "updated": 210031,
+      "added": 11796
+    }
+  ]
+}

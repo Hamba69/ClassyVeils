@@ -2,6 +2,10 @@ import type { Metadata, Viewport } from "next";
 import { Fraunces } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import "./experience.css";
+import {Suspense} from "react";
+import PicksMount from "@/components/cart/PicksMount";
+import {voice} from "@/content/voice";
 import SiteHeader from "@/components/SiteHeader";
 import PromoStrip from "@/components/PromoStrip";
 import SiteFooter from "@/components/SiteFooter";
@@ -33,9 +37,8 @@ const metadataBase = new URL(
 
 export const metadata: Metadata = {
   metadataBase,
-  title: "Classyveils.ug - Find your shade",
-  description:
-    "Explore Anisha’s considered edit of veils and scarves, selected for colour, comfort, and effortless styling.",
+  title: voice.brand.siteTitle,
+  description: voice.brand.siteDescription,
 };
 
 export const viewport: Viewport = {
@@ -58,6 +61,7 @@ export default function RootLayout({
         <PublicExperience
           header={<SiteHeader promo={<PromoStrip />} />}
           footer={<SiteFooter />}
+          picks={<Suspense fallback={null}><PicksMount /></Suspense>}
         >
           {children}
         </PublicExperience>

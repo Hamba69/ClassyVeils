@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { voice } from "@/content/voice";
 import { useRef } from "react";
 
 const TRIPLE_CLICK_WINDOW_MS = 1_500;
@@ -18,7 +19,7 @@ export default function SecretDownloadTrigger() {
   const clickTimes = useRef<number[]>([]);
 
   if (pathname !== "/contact") {
-    return <span>With love, Anisha</span>;
+    return <span>{voice.brand.footerThanks}</span>;
   }
 
   function handleClick() {
@@ -46,9 +47,9 @@ export default function SecretDownloadTrigger() {
       type="button"
       onClick={handleClick}
       className="cursor-pointer select-none border-0 bg-transparent p-0 font-inherit text-inherit"
-      aria-label="With love, Anisha"
+      aria-label={voice.brand.footerThanks}
     >
-      With love, Anisha
+      {voice.brand.footerThanks}
     </button>
   );
 }

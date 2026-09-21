@@ -2,17 +2,17 @@
 
 import { useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import BrandLogo from "./BrandLogo";
+import { ui } from "@/content/voice";
 
 const TRIPLE_CLICK_WINDOW_MS = 1_500;
 
-export default function FooterAdminTrigger() {
+export default function FooterAdminTrigger({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const clickTimes = useRef<number[]>([]);
 
   if (pathname !== "/contact") {
-    return <BrandLogo className="max-w-40" />;
+    return <>{children}</>;
   }
 
   function handleClick() {
@@ -32,9 +32,9 @@ export default function FooterAdminTrigger() {
       type="button"
       onClick={handleClick}
       className="max-w-40 cursor-pointer select-none rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-plum"
-      aria-label="Classy Veils"
+      aria-label={ui.brand}
     >
-      <BrandLogo />
+      {children}
     </button>
   );
 }

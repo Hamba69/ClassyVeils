@@ -1,3 +1,4 @@
+import { voice } from "@/content/voice";
 import Image from "next/image";
 import { collection, enquiryUrl } from "@/lib/collection";
 import { Veil, photoUrl } from "@/lib/types";
@@ -76,7 +77,7 @@ export default function CollectionGallery({
             <p className="photo-price">
               {photo.veil?.price != null
                 ? `UGX ${photo.veil.price.toLocaleString("en-UG")}`
-                : "Price not yet listed"}
+                : voice.shop.priceOnRequest}
             </p>
             <p className="photo-availability">
               Availability: I’ll confirm this for you

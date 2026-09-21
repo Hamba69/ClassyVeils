@@ -1,22 +1,15 @@
 import type { CartLine } from "./CartContext";
+import { voice, ui, shopperText } from "@/content/voice";
 
-export function buildCartWhatsAppUrl(whatsappNumber: string, lines: CartLine[]) {
-  const digits = whatsappNumber.replace(/[^\d]/g, "");
-  const header = "Hi! I'd love to order the following:";
-  const body = lines
-    .map((line) => {
-      const priceTag = line.price != null
-        ? ` — UGX ${line.price.toLocaleString()}`
-        : " — price on request";
-      return `• ${line.qty}x ${line.name}${priceTag}`;
-    })
-    .join("\n");
-  const knownTotal = lines
-    .filter((line) => line.price != null)
-    .reduce((sum, line) => sum + (line.price as number) * line.qty, 0);
-  const totalLine = lines.some((line) => line.price != null)
-    ? `\n\nSubtotal (known prices only): UGX ${knownTotal.toLocaleString()}`
-    : "";
-  const message = `${header}\n\n${body}${totalLine}`;
-  return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
+export function buildPicksWhatsAppUrl(number: string, lines: CartLine[], details: { name?: string; contact?: string; notes?: string } = {}) {
+  const body = [
+    voice.picks.whatsappHello,
+    ...lines.map((line) => "? " + (line.label || line.name) + " x" + line.qty + (line.price !== null ? ", " + ui.price(line.price) : "")),
+    details.name?.trim() ? ui.nameLine + ": " + details.name.trim() : "",
+    details.contact?.trim() ? ui.contactLine + ": " + details.contact.trim() : "",
+    details.notes?.trim() ? ui.wearingLine + ": " + details.notes.trim() : "",
+    voice.picks.whatsappClose,
+  ].filter(Boolean).join("\n");
+  return "https://wa.me/" + number.replace(/\D/g, "") + "?text=" + encodeURIComponent(shopperText(body));
 }
+export const buildCartWhatsAppUrl = buildPicksWhatsAppUrl;

@@ -1,3 +1,4 @@
+import {voice, ui, shopperText} from "@/content/voice";
 const imageIds = [
   2204, 2205, 2206, 2208, 2220, 3177, 3179, 3182, 3184, 3189,
   3190, 3195, 3197, 3203, 3205, 3229, 3231, 5794, 9253, 9262,
@@ -12,9 +13,8 @@ export const collection = imageIds.map((id) => ({
   alt: id === 5794 ? 'Red veil draped on a display mannequin' : `ClassyVeils styling photograph, reference ${id}`,
 }));
 
-export function enquiryUrl(number: string, reference?: string) {
-  const text = reference
-    ? `Hello Anisha, I would like to enquire about the veil in photo ${reference} from the ClassyVeils collection. Please confirm the fabric, price and availability.`
-    : 'Hello Anisha, I would like to enquire about your new veil collection.';
-  return `https://wa.me/${number.replace(/\D/g, '')}?text=${encodeURIComponent(text)}`;
+export function enquiryUrl(number: string, reference?: string, label?: string, second?: string, secondLabel?: string) {
+  const text = reference && second ? voice.picks.whatsappBoth(/^[0-9]{4}$/.test(reference) ? reference : label || reference, /^[0-9]{4}$/.test(second) ? second : secondLabel || second)
+    : reference ? (/^[0-9]{4}$/.test(reference) ? voice.picks.whatsappSingle(reference) : ui.messageItem(label || reference)) : voice.picks.whatsappHello;
+  return 'https://wa.me/' + number.replace(/\D/g, '') + '?text=' + encodeURIComponent(shopperText(text));
 }

@@ -1,0 +1,57 @@
+{
+  "failures": 0,
+  "results": [
+    {
+      "route": "/",
+      "status": 200,
+      "gzip": 217572,
+      "whatsapp": "25678960004"
+    },
+    {
+      "route": "/shop",
+      "status": 200,
+      "gzip": 216103,
+      "count": 51
+    },
+    {
+      "route": "/shop?mode=swipe&shade=rose",
+      "status": 200,
+      "gzip": 216103
+    },
+    {
+      "route": "/shop?mode=compare",
+      "status": 200,
+      "gzip": 216103
+    },
+    {
+      "route": "/shop?category=silk",
+      "status": 200,
+      "gzip": 216103
+    },
+    {
+      "route": "/lookbook",
+      "status": 200,
+      "gzip": 212355
+    },
+    {
+      "route": "/styling",
+      "status": 200,
+      "gzip": 213518
+    },
+    {
+      "route": "/about",
+      "status": 200,
+      "gzip": 216103
+    },
+    {
+      "route": "/contact",
+      "status": 200,
+      "gzip": 210031
+    },
+    {
+      "route": "/nope",
+      "status": 404,
+      "gzip": 209431
+    }
+  ]
+}

@@ -77,7 +77,7 @@ em {
   gap: 28px;
   padding: 9px 22px;
   background: var(--color-petal);
-  color: var(--color-gold);
+  color: var(--color-plum);
   font-size: 12px;
   overflow-x: auto;
   white-space: nowrap;
@@ -161,7 +161,7 @@ em {
   min-height: 48px;
   padding: 14px 24px;
   border-radius: 40px;
-  background: var(--color-rose);
+  background: var(--color-plum);
   color: var(--color-ivory);
   font-size: 14px;
   font-weight: 600;
@@ -503,7 +503,7 @@ em {
   right: 5px;
   bottom: 24px;
   font-size: 23px;
-  color: var(--color-gold);
+  color: var(--color-plum);
 }
 .social-catalogue {
   display: grid;

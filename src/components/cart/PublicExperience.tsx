@@ -1,20 +1,16 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { CartProvider, useCart } from "@/lib/cart/CartContext";
 
-export default function PublicExperience({ children, header, footer }: { children: React.ReactNode; header: React.ReactNode; footer: React.ReactNode }) {
-  const pathname = usePathname();
-  useEffect(() => {
-    try { window.localStorage.removeItem("classyveils-cart"); } catch { /* Storage may be disabled in the browser. */ }
-  }, []);
-  if (pathname.startsWith("/admin")) return children;
-
-  return (
-      <div className="flex min-h-screen flex-col">
-        {header}
-        <div className="flex-1">{children}</div>
-        {footer}
-      </div>
-  );
+function Toast() {
+  const { message } = useCart();
+  return <div className="cv-toast" role="status" aria-live="polite" data-visible={!!message}>{message}</div>;
+}
+export default function PublicExperience({ children, header, footer, picks }: {
+  children: React.ReactNode; header: React.ReactNode; footer: React.ReactNode; picks: React.ReactNode;
+}) {
+  const path = usePathname();
+  if (path.startsWith("/admin")) return children;
+  return <CartProvider><div className="cv-public">{header}<div className="cv-content">{children}</div>{footer}{picks}<Toast /></div></CartProvider>;
 }
