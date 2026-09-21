@@ -17,7 +17,9 @@ export default async function HomePage() {
   const items = buildCatalogue(veils);
   const shades = (Object.entries(SHADES) as [ShadeId, (typeof SHADES)[ShadeId]][]).map(([id, shade]) => ({
     id, label: shade.label, hex: shade.hex, note: voice.shades.notes[id],
-    count: items.filter((item) => item.shade === id).length, heroSrc: "/collection/img-" + shade.hero + ".webp", ref: shade.hero,
+    count: items.filter((item) => item.shade === id).length,
+    heroSrc: id === "rose" ? "/collection/blue.webp" : "/collection/img-" + shade.hero + ".webp",
+    ref: shade.hero,
   }));
   const fabrics = categories.filter((category) => items.some((item) => item.categorySlug === category.slug));
   return <main>
