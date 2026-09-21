@@ -53,7 +53,7 @@
 .cv-tabs { display: none; }
 .cv-hero { position: relative; min-height: 820px; isolation: isolate; background: var(--color-petal); }
 .cv-hero-photo { position: absolute; inset: 0; overflow: hidden; }
-.cv-hero-layer { object-fit: cover; object-position: 65% 30%; opacity: 0; transition: opacity 700ms; }
+.cv-hero-layer { object-fit: cover; object-position: 50% 24%; opacity: 0; transform: scale(1.08); transition: opacity 700ms; }
 .cv-hero-layer.cv-active { opacity: 1; }
 .cv-hero-copy { position: relative; isolation: isolate; width: 55%; min-height: 820px; padding: 56px 5vw; background: rgb(251 245 239 / .96); }
 .cv-hero-copy::before { position: absolute; content: ""; inset: 0; background: var(--cv-hero-tint); z-index: -1; transition: background 400ms; }
