@@ -11,6 +11,7 @@ import PromoStrip from "@/components/PromoStrip";
 import SiteFooter from "@/components/SiteFooter";
 import PublicExperience from "@/components/cart/PublicExperience";
 import { Analytics } from "@vercel/analytics/next";
+import { getSiteOrigin } from "@/lib/site-url";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -29,16 +30,22 @@ const generalSans = localFont({
   display: "swap",
 });
 
-const metadataBase = new URL(
-  process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : "http://localhost:3000",
-);
+const metadataBase = getSiteOrigin();
 
 export const metadata: Metadata = {
   metadataBase,
-  title: voice.brand.siteTitle,
+  title: { default: voice.brand.siteTitle, template: "%s | Classyveils.ug" },
   description: voice.brand.siteDescription,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "en_UG",
+    siteName: "Classyveils.ug",
+    title: voice.brand.siteTitle,
+    description: voice.brand.siteDescription,
+    images: ["/opengraph-image.png"],
+  },
+  twitter: { card: "summary_large_image", images: ["/opengraph-image.png"] },
 };
 
 export const viewport: Viewport = {

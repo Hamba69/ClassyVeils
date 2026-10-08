@@ -4,6 +4,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { editorialPhotoUrl, photoUrl, Veil } from "@/lib/types";
 import { deleteEditorialPhoto, deletePhoto, moveVeilPhoto, updateVeil } from "@/app/admin/actions";
 import ImageUploadPreview from "@/components/admin/ImageUploadPreview";
+import ConfirmSubmitButton from "@/components/admin/ConfirmSubmitButton";
 
 export default async function EditVeilPage({
   params,
@@ -40,13 +41,13 @@ export default async function EditVeilPage({
                     <button type="submit" disabled={index === veil.photos.length - 1} className="grid min-h-11 w-full place-items-center rounded-lg border border-line disabled:opacity-30" aria-label={`Move product photo ${index + 1} later`}>↓</button>
                   </form>
                   <form action={deletePhoto.bind(null, veil.id, veil.category_slug, path)}>
-                  <button
-                    type="submit"
+                  <ConfirmSubmitButton
+                    message={`Remove product photo ${index + 1}? This cannot be undone.`}
                     className="min-h-11 w-full rounded-lg border border-line text-xs text-ink/60 hover:border-plum hover:text-plum"
                     aria-label={`Remove product photo ${index + 1}`}
                   >
-                    ×
-                  </button>
+                    Remove
+                  </ConfirmSubmitButton>
                   </form>
                 </div>
               </div>
@@ -73,7 +74,7 @@ export default async function EditVeilPage({
                     <button type="submit" disabled={index === veil.model_photos.length - 1} className="grid min-h-11 w-full place-items-center rounded-lg border border-line disabled:opacity-30" aria-label={`Move editorial photo ${index + 1} later`}>↓</button>
                   </form>
                   <form action={deleteEditorialPhoto.bind(null, veil.id, veil.category_slug, path)}>
-                    <button type="submit" className="min-h-11 w-full rounded-lg border border-line text-xs text-ink/60 hover:border-plum hover:text-plum" aria-label={`Remove editorial photo ${index + 1}`}>×</button>
+                    <ConfirmSubmitButton message={`Remove editorial photo ${index + 1}? This cannot be undone.`} className="min-h-11 w-full rounded-lg border border-line text-xs text-ink/60 hover:border-plum hover:text-plum" aria-label={`Remove editorial photo ${index + 1}`}>Remove</ConfirmSubmitButton>
                   </form>
                 </div>
               </div>

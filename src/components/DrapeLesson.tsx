@@ -29,10 +29,10 @@ export default function DrapeLesson() {
           <path d="M28 400 C34 318 92 284 160 284 C228 284 286 318 292 400 M160 78 C190 78 206 104 206 134 C206 168 186 196 160 196 C134 196 114 168 114 134 C114 104 130 78 160 78Z" />
           {paths.map((path, i) => path ? <path key={i} className="cv-fabric-path" data-drawn={i <= step} d={path} pathLength="1" /> : <circle key={i} className="cv-pin-point" data-drawn={i <= step} cx="206" cy="190" r="4" stroke="#b9902f" />)}
         </svg>
-        <p>{voice.style.stepLabel(step + 1, 4)}</p>
+        <p className="cv-figure-index"><span aria-hidden="true">{String(step + 1).padStart(2, "0")} / 04</span><span className="cv-sr">{voice.style.stepLabel(step + 1, 4)}</span></p>
       </div>
       <div className="cv-steps">{voice.style.steps.map((item, i) => <article key={item.title} data-step={i} data-active={step === i}>
-        <p className="cv-small">{voice.style.stepLabel(i + 1, 4)}</p>
+        <p className="cv-step-index"><span aria-hidden="true">{String(i + 1).padStart(2, "0")} / {String(voice.style.steps.length).padStart(2, "0")}</span><span className="cv-sr">{voice.style.stepLabel(i + 1, voice.style.steps.length)}</span></p>
         <h3><button onClick={() => setStep(i)} aria-pressed={step === i}>{item.title}</button></h3>
         {i === 2 && <PearlPin />}
         <p>{item.body}</p>

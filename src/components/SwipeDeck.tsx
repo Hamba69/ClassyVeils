@@ -119,6 +119,7 @@ export default function SwipeDeck({ items, number, onOpen }: {
     else resetDrag();
   }
   const passed = moves.filter((m) => !m.kept).map((m) => m.item);
+  const askUrl = enquiryUrl(number);
   return <div className="cv-deck-stage" style={{ "--cv-tint": item?.shade ? SHADES[item.shade].hex + "24" : "transparent" } as CSSProperties}>
     <div className="cv-deck" tabIndex={0} aria-label={voice.shop.modes.swipe.label} onKeyDown={(event) => {
       if (event.target !== event.currentTarget || !["ArrowRight", "ArrowLeft", "Backspace", "z", "Enter"].includes(event.key)) return;
@@ -147,7 +148,7 @@ export default function SwipeDeck({ items, number, onOpen }: {
         <h2>{voice.deck.endTitle}</h2><p>{cart.lines.length ? voice.deck.endWithPicks(cart.lines.length) : voice.deck.endNoPicks}</p>
         {passed.length > 0 && <button className="cv-button" onClick={() => { setQueue(passed); setMoves([]); }}>{voice.deck.lookAgain}</button>}
         <button className="cv-pill" onClick={cart.openCart}>{voice.deck.openPicks}</button>
-        <a className="cv-text-link" href={enquiryUrl(number)}>{voice.deck.ask}</a>
+        {askUrl && <a className="cv-text-link" href={askUrl} target="_blank" rel="noopener noreferrer">{voice.deck.ask}</a>}
       </div>}
       <div className="cv-deck-controls">
         <button className="cv-button" disabled={!moves.length || busy} onClick={undo}>{voice.deck.undo}</button>

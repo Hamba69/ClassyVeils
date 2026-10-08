@@ -3,9 +3,10 @@ import { Category, Veil } from "@/lib/types";
 
 const fallbackSiteText: Record<string, string> = {
   hero_headline: "Find your shade of the day",
-  hero_subhead: "A considered edit of jersey, chiffon, silk, and cotton veils, chosen by Anisha for colour, comfort, and an easy sense of occasion.",
-  about_bio: "Anisha B Yusurah’s edit brings together veils and scarves chosen for their colour, comfort, and the way they make an outfit feel.",
-  whatsapp_number: "0789460004",
+  hero_subhead: "A considered collection of jersey, chiffon, silk, and cotton veils, chosen by Anisha for colour, comfort, and an easy sense of occasion.",
+  about_bio: "Anisha B Yusurah’s collection brings together veils and scarves chosen for their colour, comfort, and the way they make an outfit feel.",
+  // Avoid routing enquiries to an unconfirmed destination when configured data is unavailable.
+  whatsapp_number: "",
   contact_phone: "",
   instagram_handle: "",
 };
@@ -32,7 +33,12 @@ export async function getSiteText(): Promise<Record<string, string>> {
   }
   const map: Record<string, string> = {};
   (data ?? []).forEach((row) => (map[row.key] = row.value));
-  return { ...fallbackSiteText, ...map };
+  const siteText = { ...fallbackSiteText, ...map };
+  // Keep older admin-saved copy in step with the current collection language.
+  for (const key of ["hero_subhead", "about_bio"]) {
+    siteText[key] = siteText[key].replace(/\bedit\b/gi, "collection");
+  }
+  return siteText;
 }
 
 export async function getCategories(): Promise<Category[]> {

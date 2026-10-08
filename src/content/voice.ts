@@ -6,11 +6,11 @@ export const voice = {
   brand: {
     tagline: "Choose your colour story",
     footerLine: "Veils and scarves, chosen by Anisha.",
-    footerThanks: "Thank you for visiting my edit.",
+    footerThanks: "Thank you for taking a moment to discover my collection.",
     signature: "With love, Anisha",
     siteTitle: "Classyveils.ug | Find your shade",
     siteDescription:
-      "Explore Anisha’s edit of veils and scarves, chosen for colour and comfort, and for the way they fall.",
+      "Discover Anisha’s considered collection of veils and scarves, chosen for colour, comfort and their graceful drape.",
   },
 
   nav: {
@@ -37,10 +37,10 @@ export const voice = {
     heroLineTwo: "shade",
     heroAccent: "of the day.",
     heroBody:
-      "I’m Anisha. I choose each veil for its colour, hand-feel, and the way it settles on the shoulder. Browse the edit, note the reference that speaks to you, and message me when you’d like to talk it through.",
-    heroPrimary: "Explore the edit",
+      "I’m Anisha. I choose each veil for its beautiful hand-feel, considered colour and graceful drape. Discover the collection and find the piece that feels unmistakably you.",
+    heroPrimary: "Discover the collection",
     heroSecondary: "Swipe through them",
-    heroChip: (ref: string, label: string) => `Photo ${ref}, ${label.toLowerCase()}`,
+    heroChip: (ref: string, label: string) => `Piece ${ref}, ${label.toLowerCase()}`,
     shadePrompt: "Start with a colour and I’ll show you what I have in it.",
     shadeSeeAll: (label: string) => `See the ${label.toLowerCase()} veils`,
     fabricHeading: "Or choose by fabric",
@@ -48,8 +48,8 @@ export const voice = {
     editHeadingLine: "A closer look at",
     editHeadingAccent: "the right fall.",
     editNote:
-      "Every veil has a reference number. Put it in your WhatsApp message and I’ll know exactly which colour and finish you mean.",
-    editLink: "See the whole edit",
+      "Each piece has its own number. Share it with me on WhatsApp and I’ll guide you through its colour, finish and feel.",
+    editLink: "Explore the full collection",
     lookbookHeadingLine: "Two colours I’d",
     lookbookHeadingAccent: "start with.",
     lookbookNote:
@@ -57,12 +57,12 @@ export const voice = {
     askHeadingLine: "Not sure which",
     askHeadingAccent: "shade to choose?",
     askBody:
-      "Send me the reference numbers you’re deciding between and a note about what you’ll be wearing. We can start with the colours already in front of us.",
+      "Send me the piece numbers you’re deciding between and a note about what you’ll be wearing. We can start with the colours already in front of us.",
     askLink: "Let’s talk it through",
   },
 
   shades: {
-    countLabel: (n: number) => (n === 1 ? "1 in the edit" : `${n} in the edit`),
+    countLabel: (n: number) => (n === 1 ? "1 piece in the collection" : `${n} pieces in the collection`),
     fallbackNote: (label: string) => `${label}, as photographed.`,
     notes: {
       rose: "Warm and soft. It lifts a plain outfit without asking for attention.",
@@ -84,8 +84,9 @@ export const voice = {
     titleLine: "Which one caught",
     titleAccent: "your eye?",
     intro:
-      "Every veil has a reference number. Send it to me and I’ll tell you what I know about the fabric, the shade and whether it’s available.",
+      "Every veil has a piece number. Send it to me and I’ll tell you what I know about the fabric, the shade and whether it’s available.",
     modesLabel: "How would you like to look?",
+    categoryLabel: "The collection",
     modes: {
       swipe: {
         label: "Swipe",
@@ -93,11 +94,11 @@ export const voice = {
       },
       wander: {
         label: "Wander",
-        hint: "The whole edit at a glance. Tap any photo to look closer.",
+        hint: "The full collection, at a glance. Tap any photograph to look closer.",
       },
       compare: {
         label: "Side by side",
-        hint: "Pick two and slide between them. It’s the easiest way to decide between two shades.",
+        hint: "Choose two photographs to see their colour and drape together.",
       },
     },
     shadeLabel: "Shade",
@@ -106,12 +107,12 @@ export const voice = {
     count: (n: number, shade?: string) => (shade ? `${n} in ${shade.toLowerCase()}` : `${n} veils and scarves`),
     emptyShade:
       "Nothing in that shade yet. Try another, or message me and I’ll tell you what I have.",
-    emptyFabric: "I’m still building this edit. Browse the full collection while I prepare more in this fabric.",
+    emptyFabric: "I’m curating more pieces in this fabric. Until then, discover the full collection.",
     priceOnRequest: "Price on request",
     availability: "Availability confirmed on WhatsApp",
-    reference: (ref: string) => `Reference ${ref}`,
+    piece: (ref: string) => `Piece ${ref}`,
     kidsTitle: "The children’s collection is being prepared.",
-    kidsBody: "Check back soon, or ask me on WhatsApp.",
+    kidsBody: "Ask Anisha when the first pieces will be ready.",
   },
 
   deck: {
@@ -122,9 +123,9 @@ export const voice = {
     undo: "Undo",
     lookCloser: "Look closer",
     progress: (i: number, n: number) => `${i} of ${n}`,
-    announceKept: (ref: string) => `Kept reference ${ref}. It’s in My picks.`,
-    announcePassed: (ref: string) => `Passed on reference ${ref}.`,
-    endTitle: "That’s the whole edit.",
+    announceKept: (ref: string) => `Kept piece ${ref}. It’s in My picks.`,
+    announcePassed: (ref: string) => `Passed on piece ${ref}.`,
+    endTitle: "You’ve reached the end of the collection.",
     endWithPicks: (n: number) =>
       `You kept ${n}. Take another look at the ones you passed, or send me your picks and we’ll talk them through.`,
     endNoPicks:
@@ -146,9 +147,8 @@ export const voice = {
   compare: {
     title: "Side by side",
     pickHint: "Tap two photos below.",
-    empty: "Choose two from the edit and they’ll appear here.",
-    slideHint: "Slide the line to move between them.",
-    sliderLabel: "Slide to compare the two veils",
+    empty: "Choose two pieces from the collection and they’ll appear here.",
+    pairHint: "Two views, together. Choose either photograph to look closer.",
     ask: "Ask Anisha about both",
     keepBoth: "Keep both",
     swap: "Swap sides",
@@ -159,10 +159,10 @@ export const voice = {
     title: "My picks",
     emptyTitle: "Nothing here yet.",
     emptyBody: "Keep a veil you like and it will wait for you here. There’s no rush.",
-    browse: "Browse the edit",
+    browse: "Discover the collection",
     clear: "Clear all",
     compareTwo: "Compare two side by side",
-    quantityFor: (ref: string) => `Quantity for reference ${ref}`,
+    quantityFor: (ref: string) => `Quantity for piece ${ref}`,
     remove: "Remove",
     next: "Continue",
     back: "Back",
@@ -179,15 +179,15 @@ export const voice = {
       "There’s no online payment. I’ll confirm availability, the total and delivery with you directly.",
     successTitle: "Request received.",
     successBody: "Thank you. I’ll be in touch to confirm availability and your total.",
-    referenceLabel: "Your reference",
+    referenceLabel: "Your request code",
     done: "Done",
     error: "That didn’t save. Check your name and contact details, then try again.",
     whatsappHello: "Hello Anisha, these are my picks from Classyveils.ug:",
     whatsappClose: "Could you confirm availability, the total and delivery? Thank you.",
     whatsappSingle: (ref: string) =>
-      `Hello Anisha, I’d like to ask about the veil in photo ${ref} from the Classyveils.ug collection. Could you confirm the fabric, price and availability?`,
+      `Hello Anisha, I’d like to ask about piece ${ref} from the Classyveils.ug collection. Could you confirm the fabric, price and availability?`,
     whatsappBoth: (a: string, b: string) =>
-      `Hello Anisha, I’m deciding between photo ${a} and photo ${b} from the Classyveils.ug collection. Could you tell me about the fabric, price and availability of each?`,
+      `Hello Anisha, I’m deciding between pieces ${a} and ${b} from the Classyveils.ug collection. Could you tell me about the fabric, price and availability of each?`,
   },
 
   style: {
@@ -240,11 +240,11 @@ export const voice = {
     faq: [
       {
         q: "Which fabric is my veil?",
-        a: "Send me the reference number and I’ll confirm the fabric and finish. I’m happy to tell you how it feels and how it wears.",
+        a: "Send me the piece number and I’ll confirm the fabric and finish. I’m happy to tell you how it feels and how it wears.",
       },
       {
         q: "Is the veil I like available?",
-        a: "I confirm availability by hand, so a photo on the site isn’t a promise yet. Send me the reference and I’ll check before you plan around a colour.",
+        a: "I confirm availability by hand, so a photo on the site isn’t a promise yet. Send me the piece number and I’ll check before you plan around a colour.",
       },
       {
         q: "How do I order?",
@@ -252,7 +252,7 @@ export const voice = {
       },
       {
         q: "Can I see a veil from another angle?",
-        a: "Some references have a front and a back view, like 9773 and 9778 in ivory, or 9853 and 9833 in rose. For any other reference, ask me whether more photos are available.",
+        a: "Some pieces have a front and a back view, like 9773 and 9778 in ivory, or 9853 and 9833 in rose. For any other piece, ask me whether more photos are available.",
       },
       {
         q: "Will the colour match my screen?",
@@ -260,7 +260,7 @@ export const voice = {
       },
       {
         q: "How do I care for it?",
-        a: "Ask me for care instructions with your chosen reference. I need to confirm the fabric and finish before I advise you on washing or ironing.",
+        a: "Ask me for care instructions with your chosen piece. I need to confirm the fabric and finish before I advise you on washing or ironing.",
       },
       {
         q: "Do you have children’s veils?",
@@ -276,12 +276,12 @@ export const voice = {
     intro:
       "I’ve picked four colour stories from the collection and noted the details I’d keep in view when styling each veil.",
     keepLook: (ref: string) => `Keep ${ref}`,
-    seeRef: (ref: string) => `See reference ${ref}`,
+    seeRef: (ref: string) => `See piece ${ref}`,
     stories: [
       { id: "golden", ref: "9678", mood: "Mustard and white", title: "Let mustard lead.", copy: "Mustard 9678 brings a confident warmth to white. I’d keep the pairing simple and let the long end sit over one shoulder." },
       { id: "quiet", ref: "9773", mood: "Ivory, up close", title: "Keep the details in view.", copy: "Ivory 9773 is all about the small details along the edge. Leave them visible against white rather than tuck them into the fold." },
       { id: "romantic", ref: "9853", mood: "Rose and white", title: "A rose-coloured fold.", copy: "Rose 9853 has a softer presence from the front; 9833 shows its longer fall at the back. Together, they give you a better sense of the shape." },
-      { id: "bold", ref: "9403", mood: "Navy contrast", title: "Try a deeper blue.", copy: "Navy 9403 gives a pale outfit a clean, defined frame. Send me this reference if you’re considering a deeper shade for your own look." },
+      { id: "bold", ref: "9403", mood: "Navy contrast", title: "Try a deeper blue.", copy: "Navy 9403 gives a pale outfit a clean, defined frame. Send me this piece number if you’re considering a deeper shade for your own look." },
     ],
   },
 
@@ -290,30 +290,31 @@ export const voice = {
     titleLine: "I’m Anisha.",
     titleAccent: "Welcome to ClassyVeils.",
     intro:
-      "My full name is Anisha B Yusurah. Classyveils.ug is my edit of veils and scarves, chosen for colour and comfort, with an easy sense of occasion. WhatsApp is the easiest way to ask me about one.",
+      "My full name is Anisha B Yusurah. Classyveils.ug is my considered collection of veils and scarves, chosen for colour, comfort and a graceful sense of occasion. WhatsApp is the easiest way to ask me about a piece.",
     noteTitleLine: "The right veil is a",
     noteTitleAccent: "starting point.",
     noteOne: (n: number) =>
-      `I’ve brought ${n} ClassyVeils references together here. Each one gives us something specific to talk about: a shade, an edge detail, a fabric, or the way it falls from the shoulder.`,
+      `I’ve brought ${n} ClassyVeils pieces together here. Each one gives us something specific to talk about: a shade, an edge detail, a fabric, or the way it falls from the shoulder.`,
     noteTwo:
-      "When you message me, include the reference you have in mind. I’ll confirm the piece, its availability and the delivery details with you before you order.",
+      "When you message me, include the piece number you have in mind. I’ll confirm the piece, its availability and the delivery details with you before you order.",
     cta: "Say hello",
   },
 
   contact: {
     titleLine: "Send me the",
-    titleAccent: "photo reference.",
+    titleAccent: "piece details.",
     intro:
-      "Choosing between two veils? Send both reference numbers and tell me what you’ll wear with them. I’ll help you compare the options.",
+      "Choosing between two veils? Send both piece numbers and tell me what you’ll wear with them. I’ll help you compare the options.",
     include:
-      "Include the reference number (or both, if you’re deciding), a line about your outfit, and the area you’d like it delivered to.",
-    catalogueTitleLine: "The edit, in",
-    catalogueTitleAccent: "our conversation.",
+      "Include the piece number (or both, if you’re deciding), a line about your outfit, and the area you’d like it delivered to.",
+    catalogueTitleLine: "A closer look,",
+    catalogueTitleAccent: "shared personally.",
     catalogueBody:
-      "Send me a ClassyVeils reference number on WhatsApp. I can tell you more about the shade and the fabric, and we can sort out delivery before you order.",
+      "Send me a ClassyVeils piece number on WhatsApp. I can tell you more about the shade and the fabric, and we can sort out delivery before you order.",
     scan: "Scan to chat with Anisha",
     open: "Open WhatsApp",
-    instagram: "Instagram @classy.veils",
+    instagram: "Instagram",
+    whatsappUnavailable: "WhatsApp details are temporarily unavailable. Please try again shortly.",
     call: "Call Anisha",
   },
 
@@ -324,12 +325,12 @@ export const voice = {
     errorTitle: "Something didn’t load.",
     errorBody: "Try again in a moment. If it keeps happening, message me on WhatsApp.",
     errorRetry: "Try again",
-    loading: "Loading the edit",
+    loading: "Preparing the collection",
   },
 
   alt: {
     photo: (shade: string, ref: string, view?: string) =>
-      `${shade} veil${view ? `, ${view} view` : ""}, reference ${ref}`,
+      `${shade} veil${view ? `, ${view} view` : ""}, piece ${ref}`,
   },
 } as const;
 
@@ -356,7 +357,7 @@ export const ui = {
   contactLine: "Contact",
   wearingLine: "Wearing",
   messageItem: (label: string) => `Hello Anisha, I’d like to ask about ${label}. Could you confirm the fabric, price and availability?`,
-  photoUnavailable: "The photograph did not load. You can still ask me about this reference.",
+  photoUnavailable: "The photograph did not load. You can still ask me about this piece.",
   railLabel: "Colour stories",
   railProgress: "Colour story progress",
   filmUnavailable: "The film did not load. The drape steps are still here to follow.",

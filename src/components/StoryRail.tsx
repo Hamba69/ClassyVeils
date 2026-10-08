@@ -18,12 +18,12 @@ export default function StoryRail({ items, number, limit = 4, compact = false }:
       const el = rail.current;
       if (el) setProgress(el.scrollWidth === el.clientWidth ? 100 : Math.round(el.scrollLeft / (el.scrollWidth - el.clientWidth) * 100));
     }}>
-      {voice.lookbook.stories.slice(0, limit).map((story) => {
+      {voice.lookbook.stories.slice(0, limit).map((story, storyIndex) => {
         const item = items.find((i) => i.ref === story.ref);
         if (!item) return null;
         return <article key={story.id} id={story.id} className="cv-story">
           <div className="cv-card"><button className="cv-photo-button" aria-label={ui.closer(item.label)} onClick={() => setQuick(item)}><CataloguePhoto item={item} sizes={compact ? "(max-width: 767px) 75vw, 270px" : "(max-width: 767px) 85vw, 480px"} /></button><HeartButton item={item} compact /></div>
-          <div><p className="cv-small">{story.mood}</p><h3>{story.title}</h3><p>{story.copy}</p><Link className="cv-text-link" href={"/shop?mode=swipe&shade=" + SHADE_OF[story.ref]}>{voice.lookbook.seeRef(story.ref)}</Link></div>
+          <div><p className="cv-story-index"><span>{String(storyIndex + 1).padStart(2, "0")}</span><span>{story.mood}</span></p><h3>{story.title}</h3><p>{story.copy}</p><Link className="cv-text-link" href={"/shop?mode=swipe&shade=" + SHADE_OF[story.ref]}>{voice.lookbook.seeRef(story.ref)}</Link></div>
         </article>;
       })}
     </div>

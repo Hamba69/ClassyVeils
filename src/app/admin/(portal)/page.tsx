@@ -4,6 +4,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { photoUrl, Category, Veil } from "@/lib/types";
 import { createVeil, deleteVeil, moveVeil, toggleVisible } from "@/app/admin/actions";
 import ImageUploadPreview from "@/components/admin/ImageUploadPreview";
+import ConfirmSubmitButton from "@/components/admin/ConfirmSubmitButton";
 
 export default async function AdminDashboard() {
   const supabase = createAdminClient();
@@ -91,12 +92,12 @@ export default async function AdminDashboard() {
                 </Link>
 
                   <form action={deleteVeil.bind(null, veil.id, category.slug)}>
-                  <button
-                    type="submit"
+                  <ConfirmSubmitButton
+                    message={`Remove ${veil.name} from the catalogue? This cannot be undone.`}
                     className="min-h-11 rounded-full border border-line px-4 text-xs text-ink/70 hover:border-plum hover:text-plum"
                   >
                     Delete
-                  </button>
+                  </ConfirmSubmitButton>
                   </form>
                 </div>
               </div>

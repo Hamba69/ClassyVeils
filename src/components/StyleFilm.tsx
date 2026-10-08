@@ -22,7 +22,7 @@ export default function StyleFilm({ src }: { src?: string | null }) {
         }}><svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><path d="M11 6L26 16L11 26Z" fill="currentColor" /></svg></button>}
         {failed && <p role="status">{ui.filmUnavailable}</p>}
       </> : <>
-        <Image src="/collection/img-9778.webp" alt="" fill unoptimized sizes="(max-width: 767px) 90vw, 500px" />
+        <Image src="/collection/img-9778.webp" alt="" fill sizes="(max-width: 767px) 90vw, 500px" />
         <div className="cv-film-empty"><ArchWindow /><h3>{voice.style.filmEmptyTitle}</h3><p>{voice.style.filmEmptyBody}</p></div>
       </>}
     </div>

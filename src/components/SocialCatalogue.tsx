@@ -3,22 +3,24 @@ import QRCode from "qrcode";
 import { voice } from "@/content/voice";
 import { enquiryUrl } from "@/lib/collection";
 
-export default async function SocialCatalogue({ whatsappNumber, phone }: { whatsappNumber: string; phone?: string }) {
+export default async function SocialCatalogue({ whatsappNumber, phone, instagramHandle }: { whatsappNumber: string; phone?: string; instagramHandle?: string }) {
   const url = enquiryUrl(whatsappNumber);
-  const qr = await QRCode.toDataURL(url, {
+  const handle = instagramHandle?.trim().replace(/^@+/, "").replace(/[^a-zA-Z0-9._]/g, "");
+  const instagramUrl = handle ? `https://www.instagram.com/${encodeURIComponent(handle)}/` : null;
+  const qr = url ? await QRCode.toDataURL(url, {
     width: 360, margin: 4, errorCorrectionLevel: "M",
     color: { dark: "#5b2438", light: "#fbf5ef" },
-  });
+  }) : null;
   return <section className="social-catalogue section-shell">
-    <a className="qr-card" href={url}>
+    {url && qr ? <a className="qr-card" href={url} target="_blank" rel="noopener noreferrer">
       <Image unoptimized src={qr} width={180} height={180} alt={voice.contact.scan} />
       <span>{voice.contact.scan}</span>
-    </a>
+    </a> : <p className="cv-contact-unavailable" role="status">{voice.contact.whatsappUnavailable}</p>}
     <div><h2>{voice.contact.catalogueTitleLine}<br /><em>{voice.contact.catalogueTitleAccent}</em></h2>
-      <p>{voice.contact.catalogueBody}</p>
+      <p>{url ? voice.contact.catalogueBody : voice.contact.whatsappUnavailable}</p>
       <div className="button-row">
-        <a className="cv-pill" href={url}>{voice.contact.open}</a>
-        <a className="cv-text-link" href="https://www.instagram.com/classy.veils/" target="_blank" rel="noreferrer">{voice.contact.instagram}</a>
+        {url && <a className="cv-pill" href={url} target="_blank" rel="noopener noreferrer">{voice.contact.open}</a>}
+        {instagramUrl && <a className="cv-text-link" href={instagramUrl} target="_blank" rel="noopener noreferrer">{voice.contact.instagram} @{handle}</a>}
         {phone && <a className="cv-text-link" href={"tel:" + phone.replace(/[^+\d]/g, "")}>{voice.contact.call}</a>}
       </div>
     </div>

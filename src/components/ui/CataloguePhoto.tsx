@@ -11,7 +11,7 @@ export default function CataloguePhoto({ item, eager = false, sizes = "(max-widt
 }) {
   const [failed, setFailed] = useState(false);
   return <div className="cv-photo" style={{ backgroundColor: item.shade ? SHADES[item.shade].hex : "var(--color-petal)" }}>
-    <Image src={item.src} alt={item.alt} fill unoptimized={item.src.startsWith("/collection/")} sizes={sizes} loading={eager ? "eager" : "lazy"} draggable={false} onError={() => setFailed(true)} />
+    <Image src={item.src} alt={item.alt} fill sizes={sizes} loading={eager ? "eager" : "lazy"} draggable={false} onError={() => setFailed(true)} />
     {failed && <span className="cv-photo-error">{ui.photoUnavailable}</span>}
   </div>;
 }

@@ -4,8 +4,9 @@ import { getAllVisibleVeils, getSiteText } from "@/lib/data";
 import { buildCatalogue } from "@/lib/catalogue";
 import ShopExperience from "@/components/ShopExperience";
 import DrapeLine from "@/components/DrapeLine";
+import { publicPageMetadata } from "@/lib/seo";
 
-export const metadata = { title: voice.nav.about, description: voice.about.intro };
+export const metadata = publicPageMetadata(voice.nav.about, voice.about.intro, "/about");
 export default async function AboutPage() {
   const [veils, text] = await Promise.all([getAllVisibleVeils(), getSiteText()]);
   const items = buildCatalogue(veils);

@@ -15,6 +15,7 @@ export default function QuickView({ item, items, number, onClose }: {
   const [current, setCurrent] = useState(item);
   const id = useId();
   const pair = items.find((candidate) => candidate.ref === current.pairRef);
+  const askUrl = enquiryUrl(number, current.ref, current.label);
   return <Modal open onClose={onClose} labelledBy={id} className="cv-quick-sheet" dragToClose>
     <div className="cv-quick">
       <CataloguePhoto key={current.ref} item={current} eager sizes="(max-width: 767px) 85vw, 380px" />
@@ -25,7 +26,7 @@ export default function QuickView({ item, items, number, onClose }: {
         <p>{voice.shop.availability}</p>
         <p className="cv-small">{voice.shades.screenNote}</p>
         <div className="cv-controls"><HeartButton item={current} />{pair && <button className="cv-button" onClick={() => setCurrent(pair)}>{current.view === "front" ? voice.quickView.seeBack : voice.quickView.seeFront}</button>}</div>
-        <a className="cv-pill" href={enquiryUrl(number, current.ref, current.label)} target="_blank" rel="noopener noreferrer">{voice.quickView.ask}</a>
+        {askUrl && <a className="cv-pill" href={askUrl} target="_blank" rel="noopener noreferrer">{voice.quickView.ask}</a>}
       </div>
     </div>
   </Modal>;

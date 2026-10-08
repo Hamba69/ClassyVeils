@@ -3,8 +3,9 @@ import { buildCatalogue } from "@/lib/catalogue";
 import { getAllVisibleVeils, getSiteText } from "@/lib/data";
 import StoryRail from "@/components/StoryRail";
 import DrapeLine from "@/components/DrapeLine";
+import { publicPageMetadata } from "@/lib/seo";
 
-export const metadata = { title: voice.nav.lookbook, description: voice.lookbook.intro };
+export const metadata = publicPageMetadata(voice.nav.lookbook, voice.lookbook.intro, "/lookbook");
 export default async function LookbookPage() {
   const [veils, text] = await Promise.all([getAllVisibleVeils(), getSiteText()]);
   return <main><header className="cv-intro"><h1>{voice.lookbook.titleLine}<br /><em>{voice.lookbook.titleAccent}<DrapeLine underline /></em></h1><p>{voice.lookbook.intro}</p></header>

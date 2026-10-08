@@ -34,7 +34,7 @@ export function orderItems(lines: RequestedLine[], veils: OrderVeil[]) {
   return lines.map((line) => {
     const veil = byId.get(line.id.slice(5));
     return {
-      id: line.id, qty: line.qty, name: veil ? shopperText(veil.name) : voice.shop.reference(line.id.slice(4)),
+      id: line.id, qty: line.qty, name: veil ? shopperText(veil.name) : voice.shop.piece(line.id.slice(4)),
       price: veil?.price ?? null, category_slug: veil?.category_slug ?? null,
     };
   });

@@ -14,7 +14,6 @@ export default function CollectionPhoto({
   return (
     <figure className={`editorial-image collection-photo ${className}`}>
       <Image
-        unoptimized
         src={`/collection/img-${reference}.webp`}
         alt={alt}
         fill

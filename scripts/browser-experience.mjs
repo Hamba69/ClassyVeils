@@ -55,7 +55,7 @@ try {
   await screenshot("mobile-deck");
   await drag("[data-deck-top]", 160);
   check("pointer swipe keeps a photo", await run("JSON.parse(localStorage.getItem('classyveils-picks')).lines.length===1"));
-  check("swipe announces kept reference", await run("document.querySelector('.cv-deck-stage [role=status]').textContent.includes('Kept reference')"));
+  check("swipe announces kept piece", await run("document.querySelector('.cv-deck-stage [role=status]').textContent.includes('Kept piece')"));
   await run("document.querySelector('.cv-deck').focus()");
   const beforePass = await run("document.querySelector('.cv-deck-caption h3').textContent");
   await key("ArrowLeft");
@@ -84,7 +84,7 @@ try {
   await run("(()=>{const setter=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set;for(const [name,value] of [['customer_name','Browser fixture'],['contact','fixture@example.test']]){const e=document.querySelector('[name='+name+']');setter.call(e,value);e.dispatchEvent(new Event('input',{bubbles:true}));}})()");
   const url = await run("document.querySelector('[data-send-picks]').href");
   const message = new URL(url).searchParams.get("text");
-  check("WhatsApp link includes references and contact with no dashes", url.startsWith("https://wa.me/") && message.includes("Reference 2204") && message.includes("fixture@example.test") && !/[\u2013\u2014]/.test(message));
+  check("WhatsApp link includes piece number and contact with no dashes", url.startsWith("https://wa.me/") && message.includes("piece 2204") && message.includes("fixture@example.test") && !/[\u2013\u2014]/.test(message));
   await run("document.querySelector('[name=website]').value='local-test-honeypot';document.querySelector('.cv-picks-form').requestSubmit()");
   await wait("!!document.querySelector('.cv-received')");
   check("received state via no-write honeypot branch", await run("/[A-F0-9]{8}/.test(document.querySelector('.cv-received strong').textContent)"));

@@ -64,7 +64,7 @@ export default function HeroShade({ shades }: { shades: HeroShadeData[] }) {
   return <section className="cv-hero" style={{ "--cv-hero-tint": active.hex + "24" } as CSSProperties}>
     <div className="cv-hero-photo" aria-busy={loading}>
       {layers.map((layer, index) => <Image key={index} src={layer.heroSrc} alt={index === front ? voice.alt.photo(layer.label, layer.ref) : ""} aria-hidden={index !== front}
-        className={index === front ? "cv-hero-layer cv-active" : "cv-hero-layer"} fill unoptimized preload={index === 0 && layer.id === "rose"} sizes="100vw" />)}
+        className={index === front ? "cv-hero-layer cv-active" : "cv-hero-layer"} fill preload={index === 0 && layer.id === "rose"} sizes="100vw" />)}
     </div>
     <div className="cv-hero-copy">
       <h1><span>{voice.home.heroLineOne}</span><span>{voice.home.heroLineTwo} <em>{voice.home.heroAccent}<DrapeLine underline /></em></span></h1>

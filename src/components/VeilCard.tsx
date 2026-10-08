@@ -50,7 +50,7 @@ export default function VeilCard({
           )}
           {veil.is_featured && (
             <span className="absolute left-3 top-3 rounded-full bg-linen/90 px-2.5 py-1 text-[0.62rem] uppercase tracking-[0.22em] text-ink shadow-sm">
-              Signature edit
+              Signature piece
             </span>
           )}
           <span className="absolute right-3 top-3 rounded-full bg-sage/90 px-2.5 py-1 text-[0.62rem] uppercase tracking-[0.16em] text-white shadow-sm">

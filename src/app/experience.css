@@ -126,13 +126,16 @@
 .cv-deck-controls > :last-child { flex-basis: 100%; justify-content: center; }
 .cv-deck-end { min-height: 440px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; }
 .cv-end-art { display: flex; gap: 16px; color: var(--color-rose); }
-.cv-compare-stage { position: relative; max-width: 480px; margin-inline: auto; aspect-ratio: 3/4; border-radius: var(--cv-arch); overflow: hidden; }
-.cv-compare-back, .cv-compare-front { position: absolute; inset: 0; width: 100%; height: 100%; }
-.cv-compare-front { clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
-.cv-compare-line { position: absolute; inset-block: 0; left: clamp(0px, var(--pos), calc(100% - 2px)); width: 2px; background: var(--color-ivory); pointer-events: none; }
-.cv-compare-handle { position: absolute; top: 45%; left: -22px; width: 48px; height: 56px; display: grid; place-items: center; border: 1px solid var(--color-plum); border-radius: var(--cv-arch); background: var(--color-ivory); touch-action: none; cursor: ew-resize; pointer-events: auto; font-size: 24px; }
-.cv-compare-labels { position: absolute; inset-inline: 16px; bottom: 24px; display: flex; justify-content: space-between; gap: 8px; pointer-events: none; }
-.cv-compare-labels span { padding: 8px; font-size: 11px; background: var(--color-ivory); border-radius: 999px; }
+.cv-compare-stage { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(12px, 3vw, 32px); max-width: 920px; margin-inline: auto; }
+.cv-compare-card { position: relative; display: grid; gap: 12px; min-width: 0; text-align: left; }
+.cv-compare-photo { display: block; overflow: hidden; border-radius: var(--cv-arch); }
+.cv-compare-index { position: absolute; top: 12px; left: 12px; display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid rgb(91 36 56 / .16); border-radius: 50%; color: var(--color-plum); background: rgb(251 245 239 / .9); font-family: var(--font-display); font-size: 16px; font-style: italic; }
+.cv-compare-name { padding-inline: 4px; font-family: var(--font-display); font-size: clamp(16px, 2vw, 22px); }
+.cv-category-intro { max-width: 720px; margin: 40px auto 24px; text-align: center; }
+.cv-category-kicker { color: var(--color-rose-ink); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
+.cv-category-intro h2 { margin-top: 8px; font-size: clamp(28px, 4vw, 42px); }
+.cv-category-intro > p { max-width: 600px; margin: 12px auto 0; font-size: 14px; line-height: 1.8; }
+.cv-contact-unavailable { align-self: center; max-width: 340px; padding: 20px 24px; border: 1px solid var(--color-line); border-radius: var(--cv-arch); background: var(--color-petal); font-size: 13px; line-height: 1.7; }
 .cv-compare > p { margin-top: 16px; font-size: 13px; }
 .cv-compare-empty, .cv-empty { padding: 48px 24px; text-align: center; max-width: 680px; margin: auto; background: var(--color-petal); border-radius: 16px; }
 .cv-compare-empty svg, .cv-empty svg { margin: 0 auto 24px; }
@@ -193,6 +196,9 @@
 .cv-steps p { margin-block: 16px; max-width: 450px; }
 .cv-steps article > svg { width: 40px; height: 40px; }
 .cv-steps [aria-pressed=true] { text-decoration: underline; text-underline-offset: 8px; text-decoration-color: var(--color-gold); }
+.cv-step-index, .cv-figure-index { color: var(--color-rose-ink); font-family: var(--font-display); font-size: 13px; font-style: italic; letter-spacing: .06em; }
+.cv-step-index > span:first-child, .cv-figure-index > span:first-child { font-size: 22px; }
+.cv-figure-index { padding-bottom: 8px; }
 .cv-photo-rail { display: flex; gap: 24px; overflow-x: auto; padding-block: 32px 16px; scroll-snap-type: x mandatory; }
 .cv-photo-rail article { flex: 0 0 calc((100% - 72px) / 4); min-width: 220px; scroll-snap-align: start; }
 .cv-photo-rail p { font-size: 13px; margin-top: 16px; }
@@ -221,6 +227,8 @@
 .cv-story { min-width: 0; scroll-margin-top: 160px; }
 .cv-story > div:last-child { padding-top: 24px; }
 .cv-story h3 { font-size: 32px; margin-top: 8px; }
+.cv-story-index { display: flex; align-items: baseline; gap: 12px; margin: 0 !important; color: var(--color-rose-ink); font-size: 11px !important; letter-spacing: .12em; text-transform: uppercase; }
+.cv-story-index span:first-child { font-family: var(--font-display); font-size: 22px; font-style: italic; letter-spacing: 0; }
 .cv-story p { font-size: 14px; margin-block: 16px; }
 .cv-stories-compact { grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 32px; }
 .cv-stories-compact h3 { font-size: 26px; }

@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useId, useState, type CSSProperties } from "react";
+import Link from "next/link";
 import type { CatalogueItem } from "@/lib/catalogue";
 import type { Category } from "@/lib/types";
 import { SHADES, type ShadeId } from "@/lib/shades";
 import { withViewTransition } from "@/lib/motion";
+import { enquiryUrl } from "@/lib/collection";
 import { voice, ui, shopperText } from "@/content/voice";
 import ShadeChips from "./ShadeChips";
 import WanderGrid from "./WanderGrid";
@@ -39,6 +41,9 @@ export default function ShopExperience({ items, number, categories = [], initial
 
   const filtered = items.filter((item) => (!shade || item.shade === shade) && (!fabric || item.categorySlug === fabric));
   const fabrics = categories.filter((c) => items.some((item) => item.categorySlug === c.slug));
+  const selectedCategory = categories.find((c) => c.slug === fabric);
+  const childrenCategory = selectedCategory ? /kids|children/i.test(`${selectedCategory.slug} ${selectedCategory.label}`) : false;
+  const chatUrl = enquiryUrl(number);
   const chosen = selected.filter((ref) => filtered.some((item) => item.ref === ref)).slice(0, 2);
   function sync(nextMode: Mode, nextShade: string, nextFabric: string, refs: string[]) {
     const url = new URL(location.href);
@@ -74,8 +79,17 @@ export default function ShopExperience({ items, number, categories = [], initial
       </div>}
       <p className="cv-result" role="status">{voice.shop.count(filtered.length, shade ? SHADES[shade as ShadeId].label : undefined)}</p>
     </>}
+    {!preview && selectedCategory && <header className="cv-category-intro">
+      <span className="cv-category-kicker">{voice.shop.categoryLabel}</span>
+      <h2>{shopperText(selectedCategory.label)}</h2>
+      <p>{shopperText(selectedCategory.intro)}</p>
+    </header>}
     <div className="cv-stage" id={id + "stage"} role={preview ? undefined : "tabpanel"} aria-labelledby={preview ? undefined : id + mode} data-ready={ready}>
-      {!filtered.length ? <div className="cv-empty"><p>{fabric ? voice.shop.emptyFabric : voice.shop.emptyShade}</p>{fabric && <button className="cv-button" onClick={() => change(mode, shade, "")}>{ui.allFabrics}</button>}</div>
+      {!filtered.length ? <div className="cv-empty">
+        {childrenCategory ? <><h2>{voice.shop.kidsTitle}</h2><p>{voice.shop.kidsBody}</p>{chatUrl ? <a className="cv-pill" href={chatUrl} target="_blank" rel="noopener noreferrer">{voice.style.askLink}</a> : <Link className="cv-pill" href="/contact">{voice.nav.contact}</Link>}</>
+          : <p>{fabric ? voice.shop.emptyFabric : voice.shop.emptyShade}</p>}
+        {fabric && <button className="cv-button" onClick={() => change(mode, shade, "")}>{ui.allFabrics}</button>}
+      </div>
         : mode === "swipe" && !preview ? <SwipeDeck key={shade + ":" + fabric} items={filtered} number={number} onOpen={setQuick} />
         : mode === "compare" && !preview ? <CompareStage items={filtered} selected={chosen} number={number} onOpen={setQuick} onSelect={(refs) => { setSelected(refs); sync(mode, shade, fabric, refs); }} />
         : <WanderGrid items={filtered} onOpen={setQuick} />}

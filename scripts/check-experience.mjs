@@ -33,7 +33,7 @@ assert.equal(stored[0].price, null);
 assert.equal(stored[1].price, 45000);
 const url = new URL(buildPicksWhatsAppUrl("+25678960004", [{ ...lineFor(plain.find((p) => p.ref === "9833")), qty: 2 }], { name: "A", contact: "a@example.com", notes: "Ivory\u2014white" }));
 assert.equal(url.origin, "https://wa.me");
-assert.match(url.searchParams.get("text"), /Reference 9833 x2/);
+assert.match(url.searchParams.get("text"), /Piece 9833 x2/);
 assert.doesNotMatch(url.searchParams.get("text"), /[\u2013\u2014]|UGX/);
 
 let inserts = 0, lookups = 0, saved;
@@ -51,7 +51,7 @@ function form(items, website = "") {
 }
 const previous = { status: "idle", message: "" };
 let result = await submitOrderRequest(previous, form([{ id: "ref:9833", qty: 2 }]));
-assert.equal(result.status, "success"); assert.match(result.reference, /^[A-F0-9]{8}$/); assert.equal(lookups, 0); assert.equal(inserts, 1); assert.equal(saved.items[0].name, "Reference 9833");
+assert.equal(result.status, "success"); assert.match(result.reference, /^[A-F0-9]{8}$/); assert.equal(lookups, 0); assert.equal(inserts, 1); assert.equal(saved.items[0].name, "Piece 9833");
 result = await submitOrderRequest(previous, form([{ id: "veil:" + id, qty: 1 }]));
 assert.equal(result.status, "success"); assert.equal(lookups, 1); assert.equal(saved.items[0].price, 45000);
 lookupData = [];

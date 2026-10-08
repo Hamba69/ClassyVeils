@@ -18,7 +18,7 @@ export function buildCatalogue(veils: Veil[]): CatalogueItem[] {
     if (veil) matched.add(veil.id);
     const shade = SHADE_OF[photo.id];
     return {
-      key: "ref:" + photo.id, ref: photo.id, label: voice.shop.reference(photo.id),
+      key: "ref:" + photo.id, ref: photo.id, label: voice.shop.piece(photo.id),
       src: photo.src, alt: voice.alt.photo(SHADES[shade].label, photo.id, VIEW[photo.id]),
       price: veil?.price ?? null, categorySlug: veil?.category_slug ?? null, shade,
       view: VIEW[photo.id], pairRef: PAIR[photo.id], veilId: veil?.id,

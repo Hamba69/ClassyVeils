@@ -26,6 +26,7 @@ function PicksContent({ whatsappNumber }: { whatsappNumber: string }) {
   const heading = useRef<HTMLHeadingElement>(null);
   const id = useId();
   const [state, action, pending] = useActionState(submitOrderRequest, { status: "idle", message: "" } as OrderRequestState);
+  const whatsappUrl = buildPicksWhatsAppUrl(whatsappNumber, cart.lines, { name, contact, notes });
   const received = state.status === "success";
   const refs = cart.lines.map((line) => line.ref || line.id.replace(/^(ref|veil):/, "")).slice(0, 2);
   function close() {
@@ -49,11 +50,11 @@ function PicksContent({ whatsappNumber }: { whatsappNumber: string }) {
       <Link className="cv-pill" href="/shop" onClick={close}>{voice.picks.browse}</Link>
     </div> : step === 0 ? <div className="cv-picks-step">
       <div className="cv-pick-list">{cart.lines.map((line) => <article className="cv-pick-row" key={line.id}>
-        {line.photo && <div className="cv-pick-photo"><Image src={line.photo} alt={line.label || line.name} fill unoptimized sizes="72px" /></div>}
+        {line.photo && <div className="cv-pick-photo"><Image src={line.photo} alt={line.label || line.name} fill sizes="72px" /></div>}
         <div className="cv-pick-description"><h3>{line.label || line.name}</h3>
           {line.shade && SHADES[line.shade] && <p className="cv-shade-label"><span style={{ backgroundColor: SHADES[line.shade].hex }} />{SHADES[line.shade].label}</p>}
           <p>{line.price !== null ? ui.price(line.price) : voice.shop.priceOnRequest}</p>
-          <div className="cv-quantity"><button type="button" aria-label={ui.decrease(line.label || line.name)} disabled={line.qty <= 1} onClick={() => cart.updateQty(line.id, line.qty - 1)}><span aria-hidden="true">?</span></button>
+          <div className="cv-quantity"><button type="button" aria-label={ui.decrease(line.label || line.name)} disabled={line.qty <= 1} onClick={() => cart.updateQty(line.id, line.qty - 1)}><span aria-hidden="true">−</span></button>
             <input type="number" min={1} max={20} aria-label={voice.picks.quantityFor(line.ref || line.id)} value={line.qty} onChange={(event) => cart.updateQty(line.id, event.target.valueAsNumber)} />
             <button type="button" aria-label={ui.increase(line.label || line.name)} disabled={line.qty >= 20} onClick={() => cart.updateQty(line.id, line.qty + 1)}><span aria-hidden="true">+</span></button>
           </div>
@@ -72,7 +73,7 @@ function PicksContent({ whatsappNumber }: { whatsappNumber: string }) {
       <label>{voice.picks.contact}<input name="contact" autoComplete="email" required minLength={5} maxLength={160} value={contact} onChange={(event) => setContact(event.target.value)} /></label>
       <label>{voice.picks.notes} <span className="cv-small">{voice.picks.optional}</span><textarea name="notes" rows={3} maxLength={1000} aria-describedby={id + "notes"} value={notes} onChange={(event) => setNotes(event.target.value)} /></label>
       <p id={id + "notes"} className="cv-small">{voice.picks.notesHelp}</p>
-      <a className="cv-pill cv-wide" data-send-picks target="_blank" rel="noopener noreferrer" href={buildPicksWhatsAppUrl(whatsappNumber, cart.lines, { name, contact, notes })} onClick={(event) => { if (!form.current?.reportValidity()) event.preventDefault(); }}>{voice.picks.sendWhatsApp}</a>
+      {whatsappUrl ? <a className="cv-pill cv-wide" data-send-picks target="_blank" rel="noopener noreferrer" href={whatsappUrl} onClick={(event) => { if (!form.current?.reportValidity()) event.preventDefault(); }}>{voice.picks.sendWhatsApp}</a> : <p className="cv-contact-unavailable" role="status">{voice.contact.whatsappUnavailable}</p>}
       <button type="submit" className="cv-button" disabled={pending}>{pending ? voice.picks.saving : voice.picks.sendRequest}</button>
       <button type="button" className="cv-text-link" disabled={pending} onClick={() => next(0)}>{voice.picks.back}</button>
       {state.status === "error" && <p role="alert">{voice.picks.error}</p>}

@@ -10,19 +10,20 @@ const imageIds = [
 export const collection = imageIds.map((id) => ({
   id: String(id),
   src: `/collection/img-${id}.webp`,
-  alt: id === 5794 ? 'Red veil draped on a display mannequin' : `ClassyVeils styling photograph, reference ${id}`,
+  alt: id === 5794 ? 'Red veil draped on a display mannequin' : `ClassyVeils styling photograph, piece ${id}`,
 }));
 
 export function normalizeWhatsAppNumber(number: string) {
   const digits = number.replace(/\D/g, '');
   if (!digits) return digits;
-  if (digits.startsWith('256')) return digits;
-  if (digits.startsWith('0')) return '256' + digits.slice(1);
-  return digits;
+  const normalized = digits.startsWith('256') ? digits : digits.startsWith('0') ? '256' + digits.slice(1) : digits;
+  return normalized.length >= 8 && normalized.length <= 15 ? normalized : '';
 }
 
 export function enquiryUrl(number: string, reference?: string, label?: string, second?: string, secondLabel?: string) {
+  const recipient = normalizeWhatsAppNumber(number);
+  if (!recipient) return null;
   const text = reference && second ? voice.picks.whatsappBoth(/^[0-9]{4}$/.test(reference) ? reference : label || reference, /^[0-9]{4}$/.test(second) ? second : secondLabel || second)
     : reference ? (/^[0-9]{4}$/.test(reference) ? voice.picks.whatsappSingle(reference) : ui.messageItem(label || reference)) : voice.picks.whatsappHello;
-  return 'https://wa.me/' + normalizeWhatsAppNumber(number) + '?text=' + encodeURIComponent(shopperText(text));
+  return 'https://wa.me/' + recipient + '?text=' + encodeURIComponent(shopperText(text));
 }
